@@ -16,7 +16,7 @@ import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping("lyz/user")
-@Api(tags = "用户管理")
+@Api(description = "用户的相关接口")
 public class UserController {
 
 	@Autowired

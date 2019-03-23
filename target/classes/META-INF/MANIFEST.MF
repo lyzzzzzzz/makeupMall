@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: makeupMall
+Implementation-Version: 0.0.1-SNAPSHOT
+Built-By: 98409
+Implementation-Vendor-Id: com.lyz
+Build-Jdk: 1.8.0_171
+Implementation-URL: https://projects.spring.io/spring-boot/#/spring-bo
+ ot-starter-parent/makeupMall
+Created-By: Maven Integration for Eclipse
+

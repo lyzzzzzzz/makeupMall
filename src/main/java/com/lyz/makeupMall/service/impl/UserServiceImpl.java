@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.lyz.makeupMall.domain.User;
 import com.lyz.makeupMall.mapper.UserMapper;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lyz.makeupMall.component.ResultCode;
 import com.lyz.makeupMall.component.SmsSend;
 import com.lyz.makeupMall.service.IUserService;
@@ -76,8 +78,10 @@ public class UserServiceImpl implements IUserService {
 	 **/
 	@Override
 	public String registerCode(User user) throws Exception {
-		sms.sendSms(user);
-		return "";
+		String resultstr = sms.sendSms(user,"SMS_161593167");
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode jsonNode = mapper.readTree(resultstr);
+		return jsonNode.findValue("Code").toString();
 	}
 
 }

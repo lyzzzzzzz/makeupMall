@@ -1,6 +1,5 @@
 package com.lyz.makeupMall.component;
 
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.stereotype.Component;
 
 import com.aliyuncs.CommonRequest;
@@ -16,9 +15,9 @@ public class SmsSend {
 	 * 发送短信验证码
 	 * @Param: User user
 	 * @return: ResultCode
-	 * @updateTime: 2019-03-24 23:00
+	 * @updateTime: 2019-03-25 1:00
 	 **/
-	public String sendSms(@RequestBody User user) throws Exception {
+	public String sendSms(User user,String templateCode) throws Exception {
         DefaultProfile profile = DefaultProfile.getProfile("cn-hangzhou", "LTAIWzRk9rbydlA2", "e0XN5F3WVIpcQdHyujkvOA5sRFNzVj");
         IAcsClient client = new DefaultAcsClient(profile);
 
@@ -31,9 +30,9 @@ public class SmsSend {
         request.putQueryParameter("RegionId", "cn-hangzhou");
         request.putQueryParameter("PhoneNumbers", user.getUserPhone());
         request.putQueryParameter("SignName", "有间店");
-        request.putQueryParameter("TemplateCode", "SMS_161593167");
+        request.putQueryParameter("TemplateCode", templateCode);
         int code = (int)(Math.random()*9999)+100;
         request.putQueryParameter("TemplateParam", "{\"code\":\""+code+"\"}");
-        return client.getCommonResponse(request)+"";
+        return client.getCommonResponse(request).getData();
     }
 }

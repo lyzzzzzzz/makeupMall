@@ -1,4 +1,4 @@
-#2019-03-24
+# 2019-03-24
 
 1、新增com.lyz.makeupMall.controller下的全局异常捕获类：
 
@@ -48,7 +48,7 @@ insertUser(User user)
 </dependency>
 ```
 
-#2019-03-25
+# 2019-03-25
 
 1、补全UserController类下的函数：
 

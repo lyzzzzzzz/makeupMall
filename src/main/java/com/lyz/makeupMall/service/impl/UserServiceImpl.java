@@ -71,17 +71,14 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	/*
-	 * 注册短信验证码
+	 * 注册短信验证码发送
 	 * @Param: User user
 	 * @return: ResultCode
 	 * @updateTime: 2019-03-24 22:50
 	 **/
 	@Override
 	public String registerCode(User user) throws Exception {
-		String resultstr = sms.sendSms(user,"SMS_161593167");
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode jsonNode = mapper.readTree(resultstr);
-		return jsonNode.findValue("Code").toString();
+		return sms.sendSms(user,"SMS_161593167");
 	}
 
 }

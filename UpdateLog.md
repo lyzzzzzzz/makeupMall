@@ -74,3 +74,5 @@ REGISTERCODE_ILLEGAL = "{\"code\":\"107\",\"msg\":\"无效号码\"}";
     <version>2.9.8</version>
 </dependency>
 ```
+
+5、完善发送短信验证码并保存流程

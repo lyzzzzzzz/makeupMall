@@ -7,10 +7,10 @@ import com.lyz.makeupMall.component.ResultCode;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class GlobalExceptionHandler {
-	@ExceptionHandler(Exception.class)
-	@ResponseBody
+	//@ExceptionHandler(Exception.class)
+	//@ResponseBody
 	public String exceptionHandler() {
 		return ResultCode.ERRORSYSTEM;
 	}

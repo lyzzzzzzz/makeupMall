@@ -19,4 +19,5 @@ public class ResultCode {
 	public static String REGISTERPHONE_EXIST = "{\"code\":\"105\",\"msg\":\"用户已存在\"}";
 	public static String REGISTERCODE_SUCCESS = "{\"code\":\"106\",\"msg\":\"发送成功\"}";
 	public static String REGISTERCODE_ILLEGAL = "{\"code\":\"107\",\"msg\":\"无效号码\"}";
+	public static String PHONE_NOT_EXIST = "{\"code\":\"108\",\"msg\":\"用户不存在\"}";
 }

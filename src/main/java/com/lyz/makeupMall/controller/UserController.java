@@ -54,17 +54,10 @@ public class UserController {
 	 * 注册短信验证码接口
 	 * @Param: User loginUser
 	 * @return: ResultCode
-	 * @updateTime: 2019-03-25 1:00
+	 * @updateTime: 2019-03-25 23:30
 	 **/
 	@RequestMapping("user/registercode")
 	public String registerCode(@RequestBody User loginUser) throws Exception {
-		String resultstr = userService.registerCode(loginUser);
-		if(resultstr.matches("\"OK\"")) {
-			return ResultCode.REGISTERCODE_SUCCESS;
-		}else if(resultstr.matches("\"isv.MOBILE_NUMBER_ILLEGAL\"")) {
-			return ResultCode.REGISTERCODE_ILLEGAL;
-		}else {
-			return ResultCode.ERRORSYSTEM;
-		}
+		return userService.registerCode(loginUser);
 	}
 }

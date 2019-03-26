@@ -76,3 +76,25 @@ REGISTERCODE_ILLEGAL = "{\"code\":\"107\",\"msg\":\"无效号码\"}";
 ```
 
 5、完善发送短信验证码并保存流程
+
+# 2019-03-26
+
+1、完善登录、短信验证码注册流程，已可测试，新增验证码表phonecode：
+
+```
+CREATE TABLE phonecode (
+phonecode_id INT UNSIGNED AUTO_INCREMENT,
+phonecode_phone VARCHAR(20) NOT NULL,
+phonecode_code INT UNSIGNED NOT NULL,
+phonecode_time BIGINT UNSIGNED NOT NULL,
+PRIMARY KEY ( phonecode_id )
+);
+```
+
+2、新增个人信息修改以及个人信息查询流程
+3、新增返回码：
+
+```
+PHONECODE_OVERTIME = "{\"code\":\"109\",\"msg\":\"验证码已失效\"}";
+PHONECODE_NOT_EXIST = "{\"code\":\"110\",\"msg\":\"验证码不存在\"}";
+```

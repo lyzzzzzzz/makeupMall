@@ -8,8 +8,8 @@ public class PhoneCode implements Serializable {
     @Column(name = "phonecode_id")
     private Integer phoneCodeId;
 
-    @Column(name = "user_id")
-    private Integer userId;
+    @Column(name = "phonecode_phone")
+    private String phoneCodePhone;
 
     @Column(name = "phonecode_code")
     private Integer phoneCodeCode;
@@ -34,21 +34,21 @@ public class PhoneCode implements Serializable {
     }
 
     /**
-     * @return user_id
+     * @return phonecode_phone
      */
-    public Integer getUserId() {
-        return userId;
+    public String getPhoneCodePhone() {
+        return phoneCodePhone;
     }
 
     /**
-     * @param userId
+     * @param phoneCodePhone
      */
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setPhoneCodePhone(String phoneCodePhone) {
+        this.phoneCodePhone = phoneCodePhone;
     }
 
     /**
-     * @return phonecode_str
+     * @return phonecode_code
      */
     public Integer getPhoneCodeCode() {
         return phoneCodeCode;

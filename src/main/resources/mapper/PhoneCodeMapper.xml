@@ -4,20 +4,20 @@
 	<resultMap id="BaseResultMap"
 		type="com.lyz.makeupMall.domain.PhoneCode">
 		<result column="phonecode_id" jdbcType="INTEGER" property="phoneCodeId" />
-		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="phonecode_phone" jdbcType="VARCHAR" property="phoneCodePhone" />
 		<result column="phonecode_code" jdbcType="INTEGER" property="phoneCodeCode" />
 		<result column="phonecode_time" jdbcType="BIGINT" property="phoneCodeTime" />
 	</resultMap>
 
-	<!-- 根据用户ID查询
+	<!-- 根据用户手机号查询验证码
 		UpdateTime: 2019-03-25 23:30	
 	 -->
-	<select id="selectPhoneCodeByUserId"
-		parameterType="java.lang.Integer" resultMap="BaseResultMap">
+	<select id="selectPhoneCodeByPhone"
+		parameterType="com.lyz.makeupMall.domain.PhoneCode" resultMap="BaseResultMap">
 		SELECT
 		*
-		FROM USER WHERE
-		user_id = #{userId};
+		FROM PHONECODE WHERE
+		phonecode_phone = #{phoneCodePhone};
 	</select>
 
 	<!-- 插入
@@ -25,8 +25,8 @@
 	 -->
 	<insert id="insertPhoneCode"
 		parameterType="com.lyz.makeupMall.domain.PhoneCode">
-		insert into phonecode(user_id,phonecode_code,phonecode_time)
-		values(#{userId},#{phoneCodeCode},#{phoneCodeTime});
+		insert into phonecode(phonecode_phone,phonecode_code,phonecode_time)
+		values(#{phoneCodePhone},#{phoneCodeCode},#{phoneCodeTime});
 		<selectKey keyProperty="phoneCodeId" order="AFTER"
 			resultType="java.lang.Integer">
 			select LAST_INSERT_ID()

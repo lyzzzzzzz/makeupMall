@@ -30,7 +30,7 @@
 		user_id = #{userId};
 	</select>
 
-	<!-- 根据电话
+	<!-- 根据电话查询
 		UpdateTime: 2019-03-24 12:20：	
 	 -->
 	<select id="selectUserByUserPhone"
@@ -52,6 +52,16 @@
 			resultType="java.lang.Integer">
 			select LAST_INSERT_ID()
 		</selectKey>
+	</insert>
+	
+	<!-- 更新个人信息
+		UpdateTime: 2019-03-24 12:20：	
+	 -->
+	<insert id="updateUser"
+		parameterType="com.lyz.makeupMall.domain.User">
+		update user set user_paypwd=#{userPaypwd},user_address=#{userAddress}
+		where
+		user_phone=#{userPhone};
 	</insert>
 
 </mapper>

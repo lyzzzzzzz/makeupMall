@@ -25,7 +25,7 @@
 	<select id="selectUserByUserId"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		SELECT
-		*
+		user_id,user_phone,user_address
 		FROM USER WHERE
 		user_id = #{userId};
 	</select>
@@ -36,7 +36,7 @@
 	<select id="selectUserByUserPhone"
 		parameterType="java.lang.String" resultMap="BaseResultMap">
 		SELECT
-		*
+		user_id,user_phone,user_address
 		FROM USER WHERE
 		user_phone = #{userPhone};
 	</select>
@@ -57,11 +57,11 @@
 	<!-- 更新个人信息
 		UpdateTime: 2019-03-24 12:20：	
 	 -->
-	<insert id="updateUser"
+	<update id="updateUser"
 		parameterType="com.lyz.makeupMall.domain.User">
 		update user set user_paypwd=#{userPaypwd},user_address=#{userAddress}
 		where
 		user_phone=#{userPhone};
-	</insert>
+	</update>
 
 </mapper>

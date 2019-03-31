@@ -4,15 +4,12 @@ import java.util.Calendar;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lyz.makeupMall.domain.PhoneCode;
 import com.lyz.makeupMall.domain.User;
 import com.lyz.makeupMall.mapper.PhoneCodeMapper;
 import com.lyz.makeupMall.mapper.UserMapper;
 import com.lyz.makeupMall.component.ResultCode;
-import com.lyz.makeupMall.component.SmsSend;
 import com.lyz.makeupMall.service.IUserService;
 
 @Service
@@ -25,7 +22,7 @@ public class UserServiceImpl implements IUserService {
 	private PhoneCodeMapper phoneCodeMapper;
 	
 	@Autowired
-	private SmsSend sms;
+	private PhoneCodeServiceImpl phoneCodeService;
 
 	/*
 	 * 配对用户密码是否一致
@@ -83,7 +80,7 @@ public class UserServiceImpl implements IUserService {
 	 **/
 	@Override
 	public String registerCode_Send(User user) throws Exception {
-		return sms.sendSms(user,"SMS_161593167");
+		return phoneCodeService.sendSms(user,"SMS_161593167");
 	}
 	
 	/*

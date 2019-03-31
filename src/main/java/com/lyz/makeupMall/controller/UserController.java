@@ -3,8 +3,6 @@ package com.lyz.makeupMall.controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.io.IOException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -77,7 +75,7 @@ public class UserController {
 	 * @return: ResultCode
 	 * @updateTime: 2019-03-26 23:00
 	 **/
-	@RequestMapping("user/userdetailupdate")
+	@RequestMapping("user/detailupdate")
 	public String userDetailUpdate(@RequestBody User loginUser) {
 		if(loginUser.getUserPhone()!=null) {
 			return userService.userDetail_Update(loginUser);
@@ -91,7 +89,7 @@ public class UserController {
 	 * @return: ResultCode
 	 * @updateTime: 2019-03-26 23:00
 	 **/
-	@RequestMapping("user/userdetailselect")
+	@RequestMapping("user/detailselect")
 	public String userDetailSelect(@RequestBody User loginUser) {
 		return JSON.toJSONString(userService.userDetail_Select(loginUser));
 	}

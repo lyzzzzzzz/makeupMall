@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyz.makeupMall.mapper.BrandMapper">
+	<resultMap id="BaseResultMap"
+		type="com.lyz.makeupMall.domain.Brand">
+		<result column="brand_id" jdbcType="INTEGER" property="brandId" />
+		<result column="brand_name" jdbcType="VARCHAR"
+			property="brandName" />
+		<result column="brand_sale" jdbcType="INTEGER"
+			property="brandSale" />
+	</resultMap>
+
+	<!-- 查询 -->
+	<select id="selectBrand" resultMap="BaseResultMap">
+		SELECT TOP 10 * FROM BRAND
+		ORDER BY brand_sale DESC;
+	</select>
+
+</mapper>

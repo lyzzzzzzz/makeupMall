@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lyz.makeupMall.mapper.PhoneCodeMapper">
+	<resultMap id="BaseResultMap"
+		type="com.lyz.makeupMall.domain.Product">
+		<result column="product_id" jdbcType="INTEGER"
+			property="productId" />
+		<result column="product_name" jdbcType="VARCHAR"
+			property="productName" />
+		<result column="product_price" jdbcType="FLOAT"
+			property="productPrice" />
+		<result column="product_describe" jdbcType="VARCHAR"
+			property="productDescribe" />
+		<result column="product_color" jdbcType="VARCHAR"
+			property="productColor" />
+		<result column="product_capicity" jdbcType="VARCHAR"
+			property="productCapicity" />
+		<result column="product_brand" jdbcType="VARCHAR"
+			property="productBrand" />
+		<result column="product_type" jdbcType="VARCHAR"
+			property="productType" />
+		<result column="product_time" jdbcType="BIGINT"
+			property="productTime" />
+		<result column="product_sale" jdbcType="INTEGER"
+			property="productSale" />
+	</resultMap>
+
+	<!-- 根据ID查询 UpdateTime: 2019-03-28 23:30 -->
+	<select id="selectProductById"
+		parameterType="com.lyz.makeupMall.domain.Product"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM PRODUCT WHERE
+		product_id =
+		#{productId};
+	</select>
+
+	<!-- 根据名字查询 UpdateTime: 2019-03-28 23:30 -->
+	<select id="selectProductByName"
+		parameterType="com.lyz.makeupMall.domain.Product"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM PRODUCT WHERE
+		product_name =
+		#{productName};
+	</select>
+
+	<!-- 根据品牌查询 UpdateTime: 2019-03-28 23:30 -->
+	<select id="selectProductByBrand"
+		parameterType="com.lyz.makeupMall.domain.Product"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM PRODUCT WHERE
+		product_brand =
+		#{productBrand}
+		ORDER BY product_sale DESC;
+	</select>
+	
+	<!-- 根据时间先后查询 UpdateTime: 2019-03-28 23:30 -->
+	<select id="selectProductByTime"
+		parameterType="com.lyz.makeupMall.domain.Product"
+		resultMap="BaseResultMap">
+		SELECT
+		TOP 10 *
+		FROM PRODUCT WHERE
+		product_time =
+		#{productTime}
+		ORDER BY product_sale DESC;
+	</select>
+	
+	<!-- 根据种类查询 UpdateTime: 2019-03-28 23:30 -->
+	<select id="selectProductByType"
+		parameterType="com.lyz.makeupMall.domain.Product"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM PRODUCT WHERE
+		product_type =
+		#{productType}
+		ORDER BY product_sale DESC;
+	</select>
+
+</mapper>

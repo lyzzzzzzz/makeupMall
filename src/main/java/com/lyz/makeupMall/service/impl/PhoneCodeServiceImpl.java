@@ -1,9 +1,9 @@
-package com.lyz.makeupMall.component;
+package com.lyz.makeupMall.service.impl;
 
 import java.util.Calendar;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.aliyuncs.CommonRequest;
 import com.aliyuncs.DefaultAcsClient;
@@ -12,12 +12,14 @@ import com.aliyuncs.http.MethodType;
 import com.aliyuncs.profile.DefaultProfile;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.lyz.makeupMall.component.ResultCode;
 import com.lyz.makeupMall.domain.PhoneCode;
 import com.lyz.makeupMall.domain.User;
 import com.lyz.makeupMall.mapper.PhoneCodeMapper;
+import com.lyz.makeupMall.service.IUserService;
 
-@Component
-public class SmsSend {
+@Service
+public class PhoneCodeServiceImpl implements IPhoneCodeService {
 	@Autowired
 	private PhoneCodeMapper phoneCodeMapper;
 
@@ -56,7 +58,7 @@ public class SmsSend {
 		if (str.matches("\"OK\"")) {
 			// 验证信息发送成功，存入数据库
 			Calendar c = Calendar.getInstance();
-			this.phoneCode.setPhoneCodePhone(userPhone);
+			this.phoneCode.setPhoneCodePhone(user.getUserPhone());
 			this.phoneCode.setPhoneCodeCode(code);
 			this.phoneCode.setPhoneCodeTime(c.getTimeInMillis());
 			this.phoneCodeMapper.insertPhoneCode(this.phoneCode);

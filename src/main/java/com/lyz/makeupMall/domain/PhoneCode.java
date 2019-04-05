@@ -12,7 +12,7 @@ public class PhoneCode implements Serializable {
     private String phoneCodePhone;
 
     @Column(name = "phonecode_code")
-    private Integer phoneCodeCode;
+    private String phoneCodeCode;
 
     @Column(name = "phonecode_time")
     private Long phoneCodeTime;
@@ -50,14 +50,14 @@ public class PhoneCode implements Serializable {
     /**
      * @return phonecode_code
      */
-    public Integer getPhoneCodeCode() {
+    public String getPhoneCodeCode() {
         return phoneCodeCode;
     }
 
     /**
      * @param phonecodeCode
      */
-    public void setPhoneCodeCode(Integer phonecodeCode) {
+    public void setPhoneCodeCode(String phonecodeCode) {
         this.phoneCodeCode = phonecodeCode;
     }
 

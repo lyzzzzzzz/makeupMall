@@ -1,14 +1,15 @@
 package com.lyz.makeupMall.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alibaba.fastjson.JSON;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.lyz.makeupMall.component.ResultCode;
 import com.lyz.makeupMall.domain.PhoneCode;
 import com.lyz.makeupMall.domain.User;
@@ -26,12 +27,16 @@ public class UserController {
 	 * @updateTime: 2019-03-24 12:20
 	 **/
 	@RequestMapping("user/login")
-	public String Login(@RequestBody User loginUser) {
-		if(loginUser.getUserPhone().matches("^1[34578]\\d{9}$")) {
-			if(userService.checkUserLoginpwd(loginUser).matches(ResultCode.SUCCESS)) {
+	@ResponseBody
+	public String Login(@RequestBody Map<String, Object> userMap) {
+		if(userMap.get("userPhone").toString().matches("^1[34578]\\d{9}$")) {
+			User loginUser = new User();
+			loginUser.setUserPhone(userMap.get("userPhone").toString());
+			loginUser.setUserLoginpwd(userMap.get("userLoginpwd").toString());
+			if(userService.checkUserLoginpwd(loginUser) == ResultCode.SUCCESS) {
 				return ResultCode.LOGIN_SUCCESS;
 			}
-			if(userService.checkUserLoginpwd(loginUser).matches(ResultCode.FAIL)) {
+			if(userService.checkUserLoginpwd(loginUser) == ResultCode.FAIL) {
 				return ResultCode.LOGINPWD_NOT_MATCHES;
 			}
 		}
@@ -45,16 +50,14 @@ public class UserController {
 	 * @updateTime: 2019-03-24 12:20
 	 **/
 	@RequestMapping("user/register")
-	public String Register(String jsonObj) throws Exception {
+	@ResponseBody
+	public String Register(@RequestBody Map<String, Object> userMap) throws Exception {
 		User loginUser = new User();
 		PhoneCode phoneCode = new PhoneCode();
-		ObjectMapper mapper = new ObjectMapper();
-		JsonNode jsonNode = mapper.readTree(jsonObj);
-		loginUser.setUserPhone(jsonNode.findValue("userPhone").toString().replace("\"", ""));
-		loginUser.setUserLoginpwd(jsonNode.findValue("userLoginpwd").toString().replace("\"", ""));
-		phoneCode.setPhoneCodePhone(loginUser.getUserPhone());
-		phoneCode.setPhoneCodeCode(Integer.valueOf(jsonNode.findValue("phoneCodeCode").toString().replace("\"", "")));
-		phoneCode.setPhoneCodeTime(Long.valueOf(jsonNode.findValue("phoneCodeTime").toString().replace("\"", "")));
+		loginUser.setUserPhone(userMap.get("userPhone").toString());
+		loginUser.setUserLoginpwd(userMap.get("userLoginpwd").toString());
+		phoneCode.setPhoneCodeCode(userMap.get("phoneCodeCode").toString());
+		phoneCode.setPhoneCodeTime(Long.valueOf(userMap.get("phoneCodeTime").toString()));
 		return userService.registerUser(loginUser,phoneCode);
 	}
 	
@@ -65,8 +68,42 @@ public class UserController {
 	 * @updateTime: 2019-03-25 23:30
 	 **/
 	@RequestMapping("user/registercode")
-	public String registerCode(@RequestBody User loginUser) throws Exception {
+	@ResponseBody
+	public String registerCode(@RequestBody Map<String, Object> userMap) throws Exception {
+		User loginUser = new User();
+		loginUser.setUserPhone(userMap.get("userPhone").toString());
 		return userService.registerCode_Send(loginUser);
+	}
+	
+	/*
+	 * 身份短信验证码发送接口
+	 * @Param: User loginUser
+	 * @return: ResultCode
+	 * @updateTime: 2019-04-01 23:00
+	 **/
+	@RequestMapping("user/sendcheckcode")
+	@ResponseBody
+	public String sendCheckCode(@RequestBody Map<String, Object> userMap) throws Exception {
+		User loginUser = new User();
+		loginUser.setUserPhone(userMap.get("userPhone").toString());
+		return userService.checkCode_Send(loginUser);
+	}
+	
+	/*
+	 * 身份短信验证码验证接口
+	 * @Param: User loginUser
+	 * @return: ResultCode
+	 * @updateTime: 2019-04-01 23:00
+	 **/
+	@RequestMapping("user/checkuser")
+	@ResponseBody
+	public String checkUser(@RequestBody Map<String, Object> userMap) throws Exception {
+		User loginUser = new User();
+		PhoneCode phoneCode = new PhoneCode();
+		loginUser.setUserPhone(userMap.get("userPhone").toString());
+		phoneCode.setPhoneCodeCode(userMap.get("phoneCodeCode").toString());
+		phoneCode.setPhoneCodeTime(Long.valueOf(userMap.get("phoneCodeTime").toString()));
+		return userService.checkCode(loginUser, phoneCode);
 	}
 	
 	/*
@@ -76,8 +113,14 @@ public class UserController {
 	 * @updateTime: 2019-03-26 23:00
 	 **/
 	@RequestMapping("user/detailupdate")
-	public String userDetailUpdate(@RequestBody User loginUser) {
-		if(loginUser.getUserPhone()!=null) {
+	@ResponseBody
+	public String userDetailUpdate(@RequestBody Map<String, Object> userMap) throws Exception {
+		if(userMap.get("userPhone").toString()!=null) {
+			User loginUser = new User();
+			loginUser.setUserPhone(userMap.get("userPhone").toString());
+			loginUser.setUserLoginpwd(userMap.get("userLoginpwd").toString());
+			loginUser.setUserPaypwd(userMap.get("userPaypwd").toString());
+			loginUser.setUserAddress(userMap.get("userAddress").toString());
 			return userService.userDetail_Update(loginUser);
 		}
 		return ResultCode.ERRORSYSTEM;
@@ -90,7 +133,11 @@ public class UserController {
 	 * @updateTime: 2019-03-26 23:00
 	 **/
 	@RequestMapping("user/detailselect")
-	public String userDetailSelect(@RequestBody User loginUser) {
-		return JSON.toJSONString(userService.userDetail_Select(loginUser));
+	@ResponseBody
+	public String userDetailSelect(@RequestBody Map<String, Object> userMap) throws Exception {
+		User loginUser = new User();
+		loginUser.setUserPhone(userMap.get("userPhone").toString());
+		User resultUser = userService.userDetail_Select(loginUser);
+		return JSON.toJSONString(resultUser);
 	}
 }

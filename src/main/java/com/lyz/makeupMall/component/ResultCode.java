@@ -18,8 +18,7 @@ public class ResultCode {
 	public static String REGISTERPHONE_NOT_MATCHES = "{\"code\":\"104\",\"msg\":\"手机格式错误\"}";
 	public static String REGISTERPHONE_EXIST = "{\"code\":\"105\",\"msg\":\"用户已存在\"}";
 	public static String REGISTERCODE_SUCCESS = "{\"code\":\"106\",\"msg\":\"发送成功\"}";
-	public static String REGISTERCODE_ILLEGAL = "{\"code\":\"107\",\"msg\":\"无效号码\"}";
-	public static String PHONE_NOT_EXIST = "{\"code\":\"108\",\"msg\":\"用户不存在\"}";
-	public static String PHONECODE_OVERTIME = "{\"code\":\"109\",\"msg\":\"验证码已失效\"}";
-	public static String PHONECODE_NOT_EXIST = "{\"code\":\"110\",\"msg\":\"验证码不存在\"}";
+	public static String PHONE_ILLEGAL = "{\"code\":\"107\",\"msg\":\"无效号码\"}";
+	public static String PHONECODE_OVERTIME = "{\"code\":\"108\",\"msg\":\"验证码已失效\"}";
+	public static String PHONECODE_NOT_EXIST = "{\"code\":\"109\",\"msg\":\"验证码不存在\"}";
 }

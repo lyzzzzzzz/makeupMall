@@ -12,5 +12,5 @@ public interface ProductMapper extends Mapper<Product> {
 	List<Product> selectProductByBrand(Product product);
 	List<Product> selectProductByTime(Product product);
 	List<Product> selectProductByType(Product product);
-	List<Product> selectProductBySale(Product product);
+	List<Product> selectProductAllBySale();
 }

@@ -2,12 +2,15 @@ package com.lyz.makeupMall.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.lyz.makeupMall.domain.Product;
 import com.lyz.makeupMall.service.impl.ProductServiceImpl;
 
@@ -19,67 +22,55 @@ public class ProductController {
 	/*
 	 * 根据产品ID查询接口
 	 * @Param: Product product
-	 * @return: List<Product>
+	 * @return: JSONArray
 	 * @updateTime: 2019-03-31 22:30
 	 **/
 	@RequestMapping("product/selectById")
-	public List<Product> selectProductById(@RequestBody Product product){
-		return productService.selectProductById(product);
-	}
-	
-	/*
-	 * 根据产品名字查询接口
-	 * @Param: Product product
-	 * @return: List<Product>
-	 * @updateTime: 2019-03-31 22:30
-	 **/
-	@RequestMapping("product/selectByName")
-	public List<Product> selectProductByName(@RequestBody Product product){
-		return productService.selectProductByName(product);
-	}
-
-	/*
-	 * 根据产品品牌查询接口
-	 * @Param: Product product
-	 * @return: List<Product>
-	 * @updateTime: 2019-03-31 22:30
-	 **/
-	@RequestMapping("product/selectByBrand")
-	public List<Product> selectProductByBrand(@RequestBody Product product){
-		return productService.selectProductByBrand(product);
+	@ResponseBody
+	public JSONArray selectProductById(@RequestBody Map<String, Object> productMap){
+		Product product = new Product();
+		product.setProductId(Integer.valueOf(productMap.get("productId").toString()));
+		return JSONArray.parseArray(JSON.toJSONString(productService.selectProductById(product)));
 	}
 
 	/*
 	 * 根据产品上架时间查询接口
 	 * @Param: Product product
-	 * @return: List<Product>
+	 * @return: JSONArray
 	 * @updateTime: 2019-03-31 22:30
 	 **/
 	@RequestMapping("product/selectByTime")
-	public List<Product> selectProductByTime(@RequestBody Product product){
-		return productService.selectProductByTime(product);
+	@ResponseBody
+	public JSONArray selectProductByTime(@RequestBody Map<String, Object> productMap) throws Exception{
+		Product product = new Product();
+        product.setProductTime(Long.valueOf(productMap.get("productTime").toString()));
+		return JSONArray.parseArray(JSON.toJSONString(productService.selectProductByTime(product)));
 	}
 
 	/*
 	 * 根据产品种类查询接口
 	 * @Param: Product product
-	 * @return: List<Product>
+	 * @return: JSONArray
 	 * @updateTime: 2019-03-31 22:30
 	 **/
 	@RequestMapping("product/selectByType")
-	public List<Product> selectProductByType(@RequestBody Product product){
-		return productService.selectProductByType(product);
+	@ResponseBody
+	public JSONArray selectProductByType(@RequestBody Map<String, Object> productMap){
+		Product product = new Product();
+        product.setProductType(productMap.get("productType").toString());
+		return JSONArray.parseArray(JSON.toJSONString(productService.selectProductByType(product)));
 	}
 	
 	/*
-	 * 根据产品销量查询接口
-	 * @Param: Product product
-	 * @return: List<Product>
+	 * 根据销量排序全部查询接口
+	 * @Param: 
+	 * @return: JSONArray
 	 * @updateTime: 2019-03-31 22:30
 	 **/
-	@RequestMapping("product/selectBySale")
-	public List<Product> selectProductBySale(@RequestBody Product product){
-		return productService.selectProductBySale(product);
+	@RequestMapping("product/selectAllBySale")
+	@ResponseBody
+	public JSONArray selectProductAllBySale(){
+		return JSONArray.parseArray(JSON.toJSONString(productService.selectProductAllBySale()));
 	}
 	
 	/*
@@ -89,7 +80,8 @@ public class ProductController {
 	 * @updateTime: 2019-03-31 22:30
 	 **/
 	@RequestMapping("product/selectByNameOrBrand")
-	public List<Product> selectProductByNameOrBrand(String str){
-		return productService.selectProductByNameOrBrand(str);
+	@ResponseBody
+	public JSONArray selectProductByNameOrBrand(@RequestBody Map<String, Object> productMap){
+		return JSONArray.parseArray(JSON.toJSONString(productService.selectProductByNameOrBrand(productMap.get("nameOrBrand").toString())));
 	}
 }

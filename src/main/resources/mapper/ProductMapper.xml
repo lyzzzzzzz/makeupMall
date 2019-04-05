@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.lyz.makeupMall.mapper.PhoneCodeMapper">
+<mapper namespace="com.lyz.makeupMall.mapper.ProductMapper">
 	<resultMap id="BaseResultMap"
 		type="com.lyz.makeupMall.domain.Product">
 		<result column="product_id" jdbcType="INTEGER"
@@ -23,6 +23,8 @@
 			property="productTime" />
 		<result column="product_sale" jdbcType="INTEGER"
 			property="productSale" />
+		<result column="product_picurl" jdbcType="VARCHAR"
+			property="productPicUrl" />
 	</resultMap>
 
 	<!-- 根据ID查询 UpdateTime: 2019-03-28 23:30 -->
@@ -64,7 +66,7 @@
 		parameterType="com.lyz.makeupMall.domain.Product"
 		resultMap="BaseResultMap">
 		SELECT
-		TOP 10 *
+		*
 		FROM PRODUCT WHERE
 		product_time =
 		#{productTime}
@@ -80,6 +82,16 @@
 		FROM PRODUCT WHERE
 		product_type =
 		#{productType}
+		ORDER BY product_sale DESC;
+	</select>
+	
+	<!-- 根据销量全部查询 UpdateTime: 2019-03-28 23:30 -->
+	<select id="selectProductAllBySale"
+		parameterType="com.lyz.makeupMall.domain.Product"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM PRODUCT
 		ORDER BY product_sale DESC;
 	</select>
 

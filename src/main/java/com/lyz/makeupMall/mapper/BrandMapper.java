@@ -6,5 +6,5 @@ import com.lyz.makeupMall.domain.Brand;
 import tk.mybatis.mapper.common.Mapper;
 
 public interface BrandMapper extends Mapper<Brand> {
-	List<Brand> selectBrand(Brand brand);
+	List<Brand> selectBrand();
 }

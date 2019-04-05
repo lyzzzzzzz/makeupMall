@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.lyz.makeupMall.domain.Brand;
 import com.lyz.makeupMall.mapper.BrandMapper;
@@ -15,7 +14,7 @@ public class BrandServiceImpl implements IBrandService {
 	@Autowired
 	private BrandMapper brandMapper;
 
-	public List<Brand> selectBrand(Brand brand){
-		return brandMapper.selectBrand(brand);
+	public List<Brand> selectBrand(){
+		return brandMapper.selectBrand();
 	}
 }

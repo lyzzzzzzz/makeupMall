@@ -33,8 +33,8 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public String checkUserLoginpwd(User user) {
 		String userLoginpwd = user.getUserLoginpwd();
-		if (!this.userMapper.selectUserByUserPhone(user).isEmpty()) {
-			List<User> userList = this.userMapper.selectUserByUserPhone(user);
+		List<User> userList = this.userMapper.selectUserByUserPhone(user);
+		if (!userList.isEmpty()) {
 			if (userList.get(0).getUserLoginpwd().matches(userLoginpwd)) {
 				return ResultCode.SUCCESS;
 			} else {
@@ -52,18 +52,22 @@ public class UserServiceImpl implements IUserService {
 	 **/
 	@Override
 	public String registerUser(User user,PhoneCode phoneCode) {
-		List<PhoneCode> phoneCodesLits = phoneCodeMapper.selectPhoneCodeByPhone(phoneCode);
-		if(!phoneCodesLits.isEmpty() || phoneCodesLits.get(0).getPhoneCodePhone().matches(user.getUserPhone())) {
+		List<PhoneCode> phoneCodesLits = phoneCodeMapper.selectPhoneCodeByPhone(user.getUserPhone());
+		if(!phoneCodesLits.isEmpty() || phoneCodesLits.get(phoneCodesLits.size()-1).getPhoneCodePhone().matches(user.getUserPhone())) {
 			Calendar c = Calendar.getInstance();
-			if((c.getTimeInMillis() - phoneCodesLits.get(0).getPhoneCodeTime()) < 300000) {
-				if (this.userMapper.selectUserByUserPhone(user).isEmpty()) {
-					if (this.userMapper.insertUser(user) != 0) {
-						return ResultCode.SUCCESS;
+			if((c.getTimeInMillis() - phoneCodesLits.get(phoneCodesLits.size()-1).getPhoneCodeTime()) < 300000) {
+				if(phoneCode.getPhoneCodeCode().matches(phoneCodesLits.get(phoneCodesLits.size()-1).getPhoneCodeCode())) {
+					if (this.userMapper.selectUserByUserPhone(user).isEmpty()) {
+						if (this.userMapper.insertUser(user) != 0) {
+							return ResultCode.SUCCESS;
+						}else {
+							return ResultCode.ERRORSYSTEM;
+						}
 					}else {
-						return ResultCode.ERRORSYSTEM;
+						return ResultCode.REGISTERPHONE_EXIST;
 					}
 				}else {
-					return ResultCode.PHONE_NOT_EXIST;
+					return ResultCode.PHONECODE_NOT_EXIST;
 				}
 			}else {
 				return ResultCode.PHONECODE_OVERTIME;
@@ -81,6 +85,41 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public String registerCode_Send(User user) throws Exception {
 		return phoneCodeService.sendSms(user,"SMS_161593167");
+	}
+	
+	/*
+	 * 身份短信验证码发送
+	 * @Param: User user
+	 * @return: ResultCode
+	 * @updateTime: 2019-03-24 22:50
+	 **/
+	@Override
+	public String checkCode_Send(User user) throws Exception {
+		return phoneCodeService.sendSms(user,"SMS_161593168");
+	}
+	
+	/*
+	 * 身份短信验证码验证
+	 * @Param: PhoneCode phoneCode
+	 * @return: ResultCode
+	 * @updateTime: 2019-04-05 18:00
+	 **/
+	@Override
+	public String checkCode(User user,PhoneCode phoneCode) throws Exception {
+		List<PhoneCode> phoneCodesLits = phoneCodeMapper.selectPhoneCodeByPhone(user.getUserPhone());
+		if(!phoneCodesLits.isEmpty() || phoneCodesLits.get(phoneCodesLits.size()-1).getPhoneCodePhone().matches(user.getUserPhone())) {
+			Calendar c = Calendar.getInstance();
+			if((c.getTimeInMillis() - phoneCodesLits.get(phoneCodesLits.size()-1).getPhoneCodeTime()) < 300000) {
+				if(phoneCode.getPhoneCodeCode().matches(phoneCodesLits.get(phoneCodesLits.size()-1).getPhoneCodeCode())) {
+					return ResultCode.SUCCESS;
+				}else {
+					return ResultCode.PHONECODE_NOT_EXIST;
+				}
+			}else {
+				return ResultCode.PHONECODE_OVERTIME;
+			}
+		}
+		return ResultCode.ERRORSYSTEM;
 	}
 	
 	/*

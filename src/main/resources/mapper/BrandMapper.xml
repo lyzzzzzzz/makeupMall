@@ -8,12 +8,13 @@
 			property="brandName" />
 		<result column="brand_sale" jdbcType="INTEGER"
 			property="brandSale" />
+		<result column="brand_picurl" jdbcType="VARCHAR"
+			property="brandPicUrl" />
 	</resultMap>
 
 	<!-- 查询 -->
 	<select id="selectBrand" resultMap="BaseResultMap">
-		SELECT TOP 10 * FROM BRAND
-		ORDER BY brand_sale DESC;
+		SELECT * FROM BRAND ORDER BY brand_sale DESC;
 	</select>
 
 </mapper>

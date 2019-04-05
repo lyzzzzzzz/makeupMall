@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-cmn-Hans">
+
+<head>
+    <meta charset="UTF-8">
+    <title>商城项目后台测试页面</title>
+    <script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+</head>
+
+<body>
+    <h1>#用户功能：(初步测试完毕)</h1>
+    <div>
+        <h2>###注册功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "userPhone" : "<input id="userPhone1" />",<br />
+                "userLoginpwd" : "<input id="userLoginpwd1" />",<br />
+                "userPaypwd" : "<input id="userPaypwd1" />",<br />
+                "userAddress" : "<input id="userAddress1" />",<br />
+                "phoneCodeCode" : "<input id="phoneCodeCode1" />",<button id="getRegPhoneCode">获取验证码</button><br />
+            </div>
+            <button id="postRegUser">提交测试</button>
+            <p>测试日志：</p>
+            <div id="registerResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#getRegPhoneCode").bind("click",function() {
+                    var loginUser = {
+                        userId: 0,
+                        userPhone: $("#userPhone1").val(),
+                        userLoginpwd: $("#userLoginpwd1").val(),
+                        userPaypwd: $("#userPaypwd1").val(),
+                        userAddress: $("#userAddress1").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/user/registercode",
+                        datatype: "json",
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        cache: false,
+                        data: JSON.stringify(loginUser),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#registerResult").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+                $("#postRegUser").bind("click",function() {
+                    var loginUser = {
+                        userPhone: $("#userPhone1").val(),
+                        userLoginpwd: $("#userLoginpwd1").val(),
+                        userPaypwd: $("#userPaypwd1").val(),
+                        userAddress: $("#userAddress1").val(),
+                        phoneCodeCode: $("#phoneCodeCode1").val(),
+                        phoneCodeTime: new Date().getTime()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/user/register",
+                        datatype: "json",
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        cache: false,
+                        data: JSON.stringify(loginUser),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#registerResult").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###登录功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "userPhone" : "<input id="userPhone2" />",<br />
+                "userLoginpwd" : "<input id="userLoginpwd2" />",<br />
+            </div>
+            <button id="postLoginUser">提交测试</button>
+            <p>测试日志：</p>
+            <div id="loginResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postLoginUser").bind("click",function() {
+                    var loginUser = {
+                        userPhone: $("#userPhone2").val(),
+                        userLoginpwd: $("#userLoginpwd2").val()
+                    };
+                    console.log($("#userLoginpwd2").val());
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/user/login",
+                        datatype: "json",
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        cache: false,
+                        data: JSON.stringify(loginUser),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#loginResult").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###个人信息修改功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "userPhone" : "<input id="userPhone3" />",<br />
+                "userLoginpwd" : "<input id="userLoginpwd3" />",<br />
+                "userPaypwd" : "<input id="userPaypwd3" />",<br />
+                "userAddress" : "<input id="userAddress3" />"<br />
+            </div>
+            <button id="postDetailSelect">查询数据</button>
+            <br />
+            <button id="postDetailUpdate">提交修改数据</button>
+            <p>测试日志：</p>
+            <div id="userDetailResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postDetailSelect").bind("click",function() {
+                    var loginUser = {
+                        userPhone: $("#userPhone3").val()
+                    };
+                    console.log($("#userPhone3").val());
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/user/detailselect",
+                        datatype: "json",
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        cache: false,
+                        data: JSON.stringify(loginUser),
+                        success: function(res) { //res是server端响应
+                            console.log(res);
+                            var obj = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            $("#userPhone3").val(obj.userPhone);
+                            $("#userLoginpwd3").val(obj.userLoginpwd);
+                            $("#userPaypwd3").val(obj.userPaypwd);
+                            $("#userAddress3").val(obj.userAddress);
+                            $("#userDetailResult").append("#------"+new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+                $("#postDetailUpdate").bind("click",function() {
+                    var loginUser = {
+                        userPhone: $("#userPhone3").val(),
+                        userLoginpwd: $("#userLoginpwd3").val(),
+                        userPaypwd: $("#userPaypwd3").val(),
+                        userAddress: $("#userAddress3").val()
+                    };
+                    console.log($("#userPhone3-1").val());
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/user/detailupdate",
+                        datatype: "json",
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        cache: false,
+                        data: JSON.stringify(loginUser),
+                        success: function(res) { //res是server端响应
+                            console.log(res);
+                            var obj = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            $("#userPhone3-1").val(obj.userPhone);
+                            $("#userLoginpwd3-1").val(obj.userLoginpwd);
+                            $("#userPaypwd3-1").val(obj.userPaypwd);
+                            $("#userAddress3-1").val(obj.userAddress);
+                            $("#userDetailResult").append("#------"+new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+            </script>
+    </div>
+    <div>
+        <h2>###用户身份验证功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "userPhone" : "<input id="userPhone4" />",<br />
+                "phoneCodeCode" : "<input id="phoneCodeCode4" />",<button id="getCheckCode">获取验证码</button><br />
+            </div>
+            <button id="postCheckUser">身份验证</button>
+            <p>测试日志：</p>
+            <div id="userCheckResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#getCheckCode").bind("click",function() {
+                    var loginUser = {
+                        userPhone: $("#userPhone4").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/user/sendcheckcode",
+                        datatype: "json",
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        cache: false,
+                        data: JSON.stringify(loginUser),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#userCheckResult").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+                $("#postCheckUser").bind("click",function() {
+                    var loginUser = {
+                        userPhone: $("#userPhone4").val(),
+                        phoneCodeCode: $("#phoneCodeCode4").val(),
+                        phoneCodeTime: new Date().getTime()
+                    };
+                    console.log($("#userPhone4").val());
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/user/checkuser",
+                        datatype: "json",
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        cache: false,
+                        data: JSON.stringify(loginUser),
+                        success: function(res) { //res是server端响应
+                            console.log(res);
+                            $("#userCheckResult").append("#------"+new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+            </script>
+    </div>
+    
+    <h1>#品牌功能：(初步测试完毕)</h1>
+    <div>
+        <h2>###查询品牌按销量排序功能测试：(已测试)</h1>
+            <button id="postSelectBrand">提交测试</button>
+            <p>测试日志：</p>
+            <div id="brandResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectBrand").bind("click",function() {
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/brand/selectBrand",
+                        cache: false,
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#brandResult").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    
+    <h1>#商品功能：(初步测试完毕)</h1>
+    <div>
+        <h2>###根据ID查询功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "productId" : "<input id="productId1" />",<br />
+            </div>
+            <button id="postSelectById">提交测试</button>
+            <p>测试日志：</p>
+            <div id="ProductResult1" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectById").bind("click",function() {
+                    var product = {
+                        productId: $("#productId1").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/product/selectById",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(product),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#ProductResult1").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###根据上架时间查询功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "productTime" : "<input id="productTime4" />",<br />
+            </div>
+            <button id="postSelectByTime">提交测试</button>
+            <p>测试日志：</p>
+            <div id="ProductResult4" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectByTime").bind("click",function() {
+                    var product = {
+                        productTime: (new Date($("#productTime4").val()+" 00:00:00")).getTime()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/product/selectByTime",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(product),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#ProductResult4").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###根据种类查询功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "productType" : "<input id="productType5" />",<br />
+            </div>
+            <button id="postSelectByType">提交测试</button>
+            <p>测试日志：</p>
+            <div id="ProductResult5" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectByType").bind("click",function() {
+                    var product = {
+                        productType: $("#productType5").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/product/selectByType",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(product),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#ProductResult5").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###根据销量排序全部查询功能测试：(已测试)</h1>
+            <button id="postSelectAllBySale">提交测试</button>
+            <p>测试日志：</p>
+            <div id="ProductResult6" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectAllBySale").bind("click",function() {
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/product/selectAllBySale",
+                        cache: false,
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#ProductResult6").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###根据名字或品牌查询功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "nameOrBrand" : "<input id="nameOrBrand7" />",<br />
+            </div>
+            <button id="postSelectByNameOrBrand">提交测试</button>
+            <p>测试日志：</p>
+            <div id="ProductResult7" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectByNameOrBrand").bind("click",function() {
+                    var product = {
+                        nameOrBrand: $("#nameOrBrand7").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/product/selectByNameOrBrand",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(product),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#ProductResult7").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    
+    <h1>#订单功能：</h1>
+    <div>
+        <h2>###根据用户手机号查询功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "orderUserPhone" : "<input id="orderUserPhone1" />",<br />
+            </div>
+            <button id="postSelectOrderByUserPhone">提交测试</button>
+            <p>测试日志：</p>
+            <div id="OrderResult1" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectOrderByUserPhone").bind("click",function() {
+                    var order = {
+                        orderUserPhone: $("#orderUserPhone1").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/order/selectByPhone",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(order),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#OrderResult1").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+</body>
+
+</html>

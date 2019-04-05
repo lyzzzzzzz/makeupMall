@@ -24,9 +24,9 @@
 		UpdateTime: 2019-03-31 22:30	
 	 -->
 	<select id="selectOrderByUserPhone" resultMap="BaseResultMap">
-		SELECT * FROM ORDER
+		SELECT * FROM ORDERS
 		WHERE order_userphone = #{orderUserPhone}
-		ORDER BY order_time DESC,order_id DESC;
+		ORDER BY order_time DESC;
 	</select>
 	
 	<!-- 根据订单状态查询

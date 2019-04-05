@@ -18,14 +18,6 @@ public class ProductServiceImpl implements IProductService {
 	public List<Product> selectProductById(Product product){
 		return productMapper.selectProductById(product);
 	}
-	
-	public List<Product> selectProductByName(Product product){
-		return productMapper.selectProductByName(product);
-	}
-
-	public List<Product> selectProductByBrand(Product product){
-		return productMapper.selectProductByBrand(product);
-	}
 
 	public List<Product> selectProductByTime(Product product){
 		return productMapper.selectProductByTime(product);
@@ -35,8 +27,8 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.selectProductByType(product);
 	}
 	
-	public List<Product> selectProductBySale(Product product){
-		return productMapper.selectProductBySale(product);
+	public List<Product> selectProductAllBySale(){
+		return productMapper.selectProductAllBySale();
 	}
 	
 	public List<Product> selectProductByNameOrBrand(String str){

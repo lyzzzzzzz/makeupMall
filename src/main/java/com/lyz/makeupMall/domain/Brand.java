@@ -13,6 +13,9 @@ public class Brand implements Serializable {
     
     @Column(name = "brand_sale")
     private Integer brandSale;
+    
+    @Column(name = "brand_picurl")
+    private String brandPicUrl;
 
     private static final long serialVersionUID = 1L;
 
@@ -57,4 +60,19 @@ public class Brand implements Serializable {
 	public void setBrandSale(int brandSale) {
 		this.brandSale = brandSale;
 	}
+
+	/**
+     * @return brand_picurl
+     */
+	public String getBrandPicUrl() {
+		return brandPicUrl;
+	}
+
+	/**
+     * @param brandPicUrl
+     */
+	public void setBrandPicUrl(String brandPicUrl) {
+		this.brandPicUrl = brandPicUrl;
+	}
+	
 }

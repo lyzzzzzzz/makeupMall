@@ -5,7 +5,7 @@ import java.util.Date;
 
 import javax.persistence.*;
 
-@Table(name = "order")
+@Table(name = "orders")
 public class Order implements Serializable {
     @Column(name = "order_id")
     private Integer orderId;
@@ -26,10 +26,10 @@ public class Order implements Serializable {
     private Float orderTotal;
     
     @Column(name = "order_time")
-    private Date orderTime;
+    private Long orderTime;
     
-    @Column(name = "order_state")
-    private String orderState;
+    @Column(name = "order_status")
+    private String orderStatus;
 
     private static final long serialVersionUID = 1L;
 
@@ -120,28 +120,28 @@ public class Order implements Serializable {
 	/**
      * @return order_time
      */
-	public Date getOrderTime() {
+	public Long getOrderTime() {
 		return orderTime;
 	}
 
 	/**
      * @param orderTime
      */
-	public void setOrderTime(Date orderTime) {
+	public void setOrderTime(Long orderTime) {
 		this.orderTime = orderTime;
 	}
 
 	/**
      * @return orderState
      */
-	public String getOrderState() {
-		return orderState;
+	public String getOrderStatus() {
+		return orderStatus;
 	}
 
 	/**
      * @param orderState
      */
-	public void setOrderState(String orderState) {
-		this.orderState = orderState;
+	public void setOrderState(String orderStatus) {
+		this.orderStatus = orderStatus;
 	}
 }

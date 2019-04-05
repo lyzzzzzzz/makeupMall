@@ -1,6 +1,8 @@
 package com.lyz.makeupMall.domain;
 
 import java.io.Serializable;
+import java.util.Date;
+
 import javax.persistence.*;
 
 @Table(name = "product")
@@ -21,7 +23,7 @@ public class Product implements Serializable {
     private String productColor;
     
     @Column(name = "product_capicity")
-    private String productCapicity;
+    private Integer productCapicity;
     
     @Column(name = "product_brand")
     private String productBrand;
@@ -34,6 +36,9 @@ public class Product implements Serializable {
     
     @Column(name = "product_sale")
     private Integer productSale;
+    
+    @Column(name = "product_picurl")
+    private String productPicUrl;
 
     private static final long serialVersionUID = 1L;
 
@@ -110,14 +115,14 @@ public class Product implements Serializable {
 	/**
      * @return product_capicity
      */
-	public String getProductCapicity() {
+	public int getProductCapicity() {
 		return productCapicity;
 	}
 
 	/**
      * @param productCapicity
      */
-	public void setProductCapicity(String productCapicity) {
+	public void setProductCapicity(int productCapicity) {
 		this.productCapicity = productCapicity;
 	}
 	
@@ -175,6 +180,20 @@ public class Product implements Serializable {
      */
 	public void setProductSale(Integer productSale) {
 		this.productSale = productSale;
+	}
+
+	/**
+     * @return product_picurl
+     */
+	public String getProductPicUrl() {
+		return productPicUrl;
+	}
+
+	/**
+     * @param productPicUrl
+     */
+	public void setProductPicUrl(String productPicUrl) {
+		this.productPicUrl = productPicUrl;
 	}
 
 }

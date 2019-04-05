@@ -1,6 +1,7 @@
 package com.lyz.makeupMall.service.impl;
 
 import java.util.Calendar;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +17,7 @@ import com.lyz.makeupMall.component.ResultCode;
 import com.lyz.makeupMall.domain.PhoneCode;
 import com.lyz.makeupMall.domain.User;
 import com.lyz.makeupMall.mapper.PhoneCodeMapper;
-import com.lyz.makeupMall.service.IUserService;
+import com.lyz.makeupMall.service.IPhoneCodeService;
 
 @Service
 public class PhoneCodeServiceImpl implements IPhoneCodeService {
@@ -49,8 +50,14 @@ public class PhoneCodeServiceImpl implements IPhoneCodeService {
 		request.putQueryParameter("PhoneNumbers", user.getUserPhone());
 		request.putQueryParameter("SignName", "有间店");
 		request.putQueryParameter("TemplateCode", templateCode);
-		int code = (int) (Math.random() * 9999) + 100;
-		request.putQueryParameter("TemplateParam", "{\"code\":\"" + code + "\"}");
+		String codeStr="ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		String uuid=new String();
+		for(int i=0;i<4;i++)
+        {
+            char ch=codeStr.charAt(new Random().nextInt(codeStr.length()));
+            uuid+=ch;
+        }
+		request.putQueryParameter("TemplateParam", "{\"code\":\"" + uuid + "\"}");
 		String resultstr = client.getCommonResponse(request).getData();
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode jsonNode = mapper.readTree(resultstr);
@@ -59,12 +66,12 @@ public class PhoneCodeServiceImpl implements IPhoneCodeService {
 			// 验证信息发送成功，存入数据库
 			Calendar c = Calendar.getInstance();
 			this.phoneCode.setPhoneCodePhone(user.getUserPhone());
-			this.phoneCode.setPhoneCodeCode(code);
+			this.phoneCode.setPhoneCodeCode(uuid);
 			this.phoneCode.setPhoneCodeTime(c.getTimeInMillis());
 			this.phoneCodeMapper.insertPhoneCode(this.phoneCode);
-			return ResultCode.REGISTERCODE_SUCCESS;
+			return ResultCode.SUCCESS;
 		} else if (str.matches("\"isv.MOBILE_NUMBER_ILLEGAL\"")) {
-			return ResultCode.REGISTERCODE_ILLEGAL;
+			return ResultCode.PHONE_ILLEGAL;
 		} else {
 			return ResultCode.ERRORSYSTEM;
 		}

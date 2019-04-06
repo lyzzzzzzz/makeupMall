@@ -10,7 +10,7 @@ public interface ProductMapper extends Mapper<Product> {
 	List<Product> selectProductById(Product product);
 	List<Product> selectProductByName(Product product);
 	List<Product> selectProductByBrand(Product product);
-	List<Product> selectProductByTime(Product product);
+	List<Product> selectProductByTime(Long leftTime,Long rightTime);
 	List<Product> selectProductByType(Product product);
 	List<Product> selectProductAllBySale();
 }

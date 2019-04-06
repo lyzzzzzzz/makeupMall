@@ -19,8 +19,12 @@ public class OrderServiceImpl implements IOrderService {
 		return orderMapper.selectOrderByUserPhone(order);
 	}
 	
-	public List<Order> selectOrderByState(Order order) {
-		return orderMapper.selectOrderByState(order);
+	public List<Order> selectOrderByStatus(Order order) {
+		return orderMapper.selectOrderByStatus(order);
+	}
+	
+	public List<Order> selectOrderByMonth(String userPhone,Long leftTime,Long rightTime) {
+		return orderMapper.selectOrderByMonth(userPhone,leftTime,rightTime);
 	}
 	
 	public String insertOrder(Order order) {

@@ -16,8 +16,8 @@
 			property="orderTotal" />
 		<result column="order_time" jdbcType="DATE"
 			property="orderTime" />
-		<result column="order_state" jdbcType="VARCHAR"
-			property="orderState" />
+		<result column="order_status" jdbcType="VARCHAR"
+			property="orderStatus" />
 	</resultMap>
 
 	<!-- 根据手机号查询
@@ -32,9 +32,18 @@
 	<!-- 根据订单状态查询
 		UpdateTime: 2019-03-31 22:30	
 	 -->
-	<select id="selectOrderByState" resultMap="BaseResultMap">
-		SELECT * FROM ORDER
-		WHERE order_userphone = #{orderUserPhone} AND order_state = #{orderState}
+	<select id="selectOrderByStatus" resultMap="BaseResultMap">
+		SELECT * FROM ORDERS
+		WHERE order_userphone = #{orderUserPhone} AND order_status = #{orderStatus};
+	</select>
+	
+	<!-- 根据订单月份查询
+		UpdateTime: 2019-03-31 22:30	
+	 -->
+	<select id="selectOrderByMonth" resultMap="BaseResultMap">
+		SELECT * FROM ORDERS
+		WHERE order_userphone = #{arg0} AND order_time BETWEEN #{arg1} AND #{arg2}
+		ORDER BY order_time DESC;
 	</select>
 	
 	<!-- 添加订单
@@ -43,9 +52,9 @@
 	<insert id="insertOrder"
 		parameterType="com.lyz.makeupMall.domain.Order">
 		INSERT INTO 
-		order(order_userphone,order_name,order_address,order_detail,order_total,order_time,order_state)
+		ORDERS(order_userphone,order_name,order_address,order_detail,order_total,order_time,order_status)
 		VALUES
-		(#{orderUserPhone},#{orderName},#{orderAddress},#{orderDetail},#{orderTotal},#{orderTime},#{orderState});
+		(#{orderUserPhone},#{orderName},#{orderAddress},#{orderDetail},#{orderTotal},#{orderTime},#{orderStatus});
 		<selectKey keyProperty="orderId" order="AFTER"
 			resultType="java.lang.Integer">
 			select LAST_INSERT_ID()
@@ -57,6 +66,6 @@
 	 -->
 	<delete id="deleteOrder"
 		parameterType="com.lyz.makeupMall.domain.Order">
-		DELETE FROM ORDER WHERE order_id = #{orderId};
+		DELETE FROM ORDERS WHERE order_id = #{orderId};
 	</delete>
 </mapper>

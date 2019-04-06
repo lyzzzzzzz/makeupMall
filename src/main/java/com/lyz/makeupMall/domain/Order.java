@@ -1,7 +1,6 @@
 package com.lyz.makeupMall.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.*;
 
@@ -141,7 +140,7 @@ public class Order implements Serializable {
 	/**
      * @param orderState
      */
-	public void setOrderState(String orderStatus) {
+	public void setOrderStatus(String orderStatus) {
 		this.orderStatus = orderStatus;
 	}
 }

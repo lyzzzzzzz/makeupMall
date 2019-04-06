@@ -2,7 +2,7 @@ package com.lyz.makeupMall.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Calendar;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,9 +40,13 @@ public class OrderController {
 	 * @return: ResultCode
 	 * @updateTime: 2019-03-31 22:30
 	 **/
-	@RequestMapping("order/selectByState")
-	public List<Order> selectOrderByState(@RequestBody Order order){
-		return orderService.selectOrderByState(order);
+	@RequestMapping("order/selectByStatus")
+	@ResponseBody
+	public JSONArray selectOrderByState(@RequestBody Map<String, Object> orderMap){
+		Order order = new Order();
+		order.setOrderUserPhone(orderMap.get("orderUserPhone").toString());
+		order.setOrderStatus(orderMap.get("orderStatus").toString());
+		return JSONArray.parseArray(JSON.toJSONString(orderService.selectOrderByStatus(order))); 
 	}
 	
 	/*
@@ -51,8 +55,18 @@ public class OrderController {
 	 * @return: List<Order>
 	 * @updateTime: 2019-03-31 22:30
 	 **/
-	@RequestMapping("user/insertOrder")
-	public String insertOrder(@RequestBody Order order){
+	@RequestMapping("order/insertOrder")
+	@ResponseBody
+	public String insertOrder(@RequestBody Map<String, Object> orderMap){
+		Order order = new Order();
+		order.setOrderUserPhone(orderMap.get("orderUserPhone").toString());
+		order.setOrderName(orderMap.get("orderName").toString());
+		order.setOrderAddress(orderMap.get("orderAddress").toString());
+		order.setOrderDetail(orderMap.get("orderDetail").toString());
+		order.setOrderTotal(Float.valueOf(orderMap.get("orderTotal").toString()));
+		Calendar c = Calendar.getInstance();
+		order.setOrderTime(c.getTimeInMillis());
+		order.setOrderStatus(orderMap.get("orderStatus").toString());
 		return orderService.insertOrder(order);
 	}
 	
@@ -62,9 +76,26 @@ public class OrderController {
 	 * @return: ResultCode
 	 * @updateTime: 2019-03-31 22:30
 	 **/
-	@RequestMapping("user/deleteOrder")
-	public String deleteOrder(@RequestBody Order order){
+	@RequestMapping("order/deleteOrderById")
+	@ResponseBody
+	public String deleteOrder(@RequestBody Map<String, Object> orderMap){
+		Order order = new Order();
+		order.setOrderId(Integer.valueOf(orderMap.get("orderId").toString()));
 		return orderService.deleteOrder(order);
 	}
 	
+	/*
+	 * 根据月份查询接口
+	 * @Param: Order order
+	 * @return: ResultCode
+	 * @updateTime: 2019-03-31 22:30
+	 **/
+	@RequestMapping("order/selectOrderByMonth")
+	@ResponseBody
+	public JSONArray selectOrderByMonth(@RequestBody Map<String, Object> orderTimeMap){
+		Long leftTime = Long.valueOf(orderTimeMap.get("leftTime").toString());
+		Long rightTime = Long.valueOf(orderTimeMap.get("rightTime").toString());
+		String userPhone = orderTimeMap.get("userPhone").toString();
+		return JSONArray.parseArray(JSON.toJSONString(orderService.selectOrderByMonth(userPhone,leftTime,rightTime))); 
+	}
 }

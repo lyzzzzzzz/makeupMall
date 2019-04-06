@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.13</version>
+			<version>8.0.15</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -65,6 +65,24 @@
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger-ui</artifactId>
 			<version>2.2.2</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson --> 
+        <dependency> 
+            <groupId>com.alibaba</groupId> 
+            <artifactId>fastjson</artifactId> 
+            <version>1.2.40</version> 
+        </dependency>
+        <!-- 短信验证码核心SDK包 -->
+        <dependency>
+  			<groupId>com.aliyun</groupId>
+  			<artifactId>aliyun-java-sdk-core</artifactId>
+  			<version>4.0.3</version>
+		</dependency>
+		<!-- Jackson -->
+		<dependency>
+    		<groupId>com.fasterxml.jackson.core</groupId>
+    		<artifactId>jackson-databind</artifactId>
+    		<version>2.9.8</version>
 		</dependency>
 	</dependencies>
 

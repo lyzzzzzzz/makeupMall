@@ -19,8 +19,8 @@ public class ProductServiceImpl implements IProductService {
 		return productMapper.selectProductById(product);
 	}
 
-	public List<Product> selectProductByTime(Product product){
-		return productMapper.selectProductByTime(product);
+	public List<Product> selectProductByTime(Long leftTime,Long rightTime){
+		return productMapper.selectProductByTime(leftTime,rightTime);
 	}
 
 	public List<Product> selectProductByType(Product product){

@@ -24,7 +24,7 @@
             <div id="registerResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#getRegPhoneCode").bind("click",function() {
+                $("#getRegPhoneCode").bind("click", function() {
                     var loginUser = {
                         userId: 0,
                         userPhone: $("#userPhone1").val(),
@@ -49,7 +49,7 @@
                         }
                     })
                 })
-                $("#postRegUser").bind("click",function() {
+                $("#postRegUser").bind("click", function() {
                     var loginUser = {
                         userPhone: $("#userPhone1").val(),
                         userLoginpwd: $("#userLoginpwd1").val(),
@@ -90,7 +90,7 @@
             <div id="loginResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postLoginUser").bind("click",function() {
+                $("#postLoginUser").bind("click", function() {
                     var loginUser = {
                         userPhone: $("#userPhone2").val(),
                         userLoginpwd: $("#userLoginpwd2").val()
@@ -132,7 +132,7 @@
             <div id="userDetailResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postDetailSelect").bind("click",function() {
+                $("#postDetailSelect").bind("click", function() {
                     var loginUser = {
                         userPhone: $("#userPhone3").val()
                     };
@@ -154,11 +154,11 @@
                             $("#userLoginpwd3").val(obj.userLoginpwd);
                             $("#userPaypwd3").val(obj.userPaypwd);
                             $("#userAddress3").val(obj.userAddress);
-                            $("#userDetailResult").append("#------"+new Date() + " : " + res + "<br/>");
+                            $("#userDetailResult").append("#------" + new Date() + " : " + res + "<br/>");
                         }
                     })
                 })
-                $("#postDetailUpdate").bind("click",function() {
+                $("#postDetailUpdate").bind("click", function() {
                     var loginUser = {
                         userPhone: $("#userPhone3").val(),
                         userLoginpwd: $("#userLoginpwd3").val(),
@@ -183,10 +183,11 @@
                             $("#userLoginpwd3-1").val(obj.userLoginpwd);
                             $("#userPaypwd3-1").val(obj.userPaypwd);
                             $("#userAddress3-1").val(obj.userAddress);
-                            $("#userDetailResult").append("#------"+new Date() + " : " + res + "<br/>");
+                            $("#userDetailResult").append("#------" + new Date() + " : " + res + "<br/>");
                         }
                     })
                 })
+
             </script>
     </div>
     <div>
@@ -201,7 +202,7 @@
             <div id="userCheckResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#getCheckCode").bind("click",function() {
+                $("#getCheckCode").bind("click", function() {
                     var loginUser = {
                         userPhone: $("#userPhone4").val()
                     };
@@ -222,7 +223,7 @@
                         }
                     })
                 })
-                $("#postCheckUser").bind("click",function() {
+                $("#postCheckUser").bind("click", function() {
                     var loginUser = {
                         userPhone: $("#userPhone4").val(),
                         phoneCodeCode: $("#phoneCodeCode4").val(),
@@ -241,13 +242,14 @@
                         data: JSON.stringify(loginUser),
                         success: function(res) { //res是server端响应
                             console.log(res);
-                            $("#userCheckResult").append("#------"+new Date() + " : " + res + "<br/>");
+                            $("#userCheckResult").append("#------" + new Date() + " : " + res + "<br/>");
                         }
                     })
                 })
+
             </script>
     </div>
-    
+
     <h1>#品牌功能：(初步测试完毕)</h1>
     <div>
         <h2>###查询品牌按销量排序功能测试：(已测试)</h1>
@@ -256,7 +258,7 @@
             <div id="brandResult" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postSelectBrand").bind("click",function() {
+                $("#postSelectBrand").bind("click", function() {
                     $.ajax({
                         type: "POST",
                         async: true,
@@ -272,7 +274,7 @@
 
             </script>
     </div>
-    
+
     <h1>#商品功能：(初步测试完毕)</h1>
     <div>
         <h2>###根据ID查询功能测试：(已测试)</h1>
@@ -285,7 +287,7 @@
             <div id="ProductResult1" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postSelectById").bind("click",function() {
+                $("#postSelectById").bind("click", function() {
                     var product = {
                         productId: $("#productId1").val()
                     };
@@ -310,19 +312,33 @@
             </script>
     </div>
     <div>
-        <h2>###根据上架时间查询功能测试：(已测试)</h1>
+        <h2>###根据上架时间月份查询功能测试：(已测试)</h1>
             <p>测试数据：</p>
             <div style="border:1px solid #000;padding: 10px;">
-                "productTime" : "<input id="productTime4" />",<br />
+                "time" : "<br />
+                <input id="productYear4" />年",<br />
+                <input id="productMonth4" />月",<br />
             </div>
             <button id="postSelectByTime">提交测试</button>
             <p>测试日志：</p>
             <div id="ProductResult4" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postSelectByTime").bind("click",function() {
-                    var product = {
-                        productTime: (new Date($("#productTime4").val()+" 00:00:00")).getTime()
+                $("#postSelectByTime").bind("click", function() {
+                    var date = $("#productYear4").val()+"/"+$("#productMonth4").val()+"/01 00:00:00";
+                    var leftTime = new Date(date).getTime();
+                    if($("#productMonth4").val() == 12){
+                        var rightYear = parseInt($("#productYear4").val())+1;
+                        date = rightYear+"/01/01 00:00:00";
+                    }else{
+                        var rightMonth = parseInt($("#productMonth4").val())+1;
+                        date = $("#productYear4").val()+"/"+rightMonth+"/01 00:00:00";
+                    }
+                    console.log(date);
+                    var rightTime = new Date(date).getTime();
+                    var orderTime = {
+                        leftTime: leftTime,
+                        rightTime: rightTime
                     };
                     $.ajax({
                         type: "POST",
@@ -333,7 +349,7 @@
                         headers: {
                             'Content-Type': 'application/json;charset=utf-8'
                         },
-                        data: JSON.stringify(product),
+                        data: JSON.stringify(orderTime),
                         success: function(res) { //res是server端响应
                             //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
                             console.log(res);
@@ -355,7 +371,7 @@
             <div id="ProductResult5" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postSelectByType").bind("click",function() {
+                $("#postSelectByType").bind("click", function() {
                     var product = {
                         productType: $("#productType5").val()
                     };
@@ -386,7 +402,7 @@
             <div id="ProductResult6" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postSelectAllBySale").bind("click",function() {
+                $("#postSelectAllBySale").bind("click", function() {
                     $.ajax({
                         type: "POST",
                         async: true,
@@ -413,7 +429,7 @@
             <div id="ProductResult7" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postSelectByNameOrBrand").bind("click",function() {
+                $("#postSelectByNameOrBrand").bind("click", function() {
                     var product = {
                         nameOrBrand: $("#nameOrBrand7").val()
                     };
@@ -437,8 +453,8 @@
 
             </script>
     </div>
-    
-    <h1>#订单功能：</h1>
+
+    <h1>#订单功能：(初步测试完毕)</h1>
     <div>
         <h2>###根据用户手机号查询功能测试：(已测试)</h1>
             <p>测试数据：</p>
@@ -450,7 +466,7 @@
             <div id="OrderResult1" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
             </div>
             <script>
-                $("#postSelectOrderByUserPhone").bind("click",function() {
+                $("#postSelectOrderByUserPhone").bind("click", function() {
                     var order = {
                         orderUserPhone: $("#orderUserPhone1").val()
                     };
@@ -468,6 +484,174 @@
                             //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
                             console.log(res);
                             $("#OrderResult1").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###根据订单状态查询功能测试：（已测试）</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "orderUserPhone" : "<input id="orderUserPhone2" />",<br />
+                "orderStatus" : "<input id="orderStatus2" />",<br />
+            </div>
+            <button id="postSelectOrderByStatus">提交测试</button>
+            <p>测试日志：</p>
+            <div id="OrderResult2" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectOrderByStatus").bind("click", function() {
+                    var order = {
+                        orderUserPhone: $("#orderUserPhone2").val(),
+                        orderStatus: $("#orderStatus2").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/order/selectByStatus",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(order),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#OrderResult2").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###添加订单功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "orderUserPhone" : "<input id="orderUserPhone3" />",<br />
+                "orderName" : "<input id="orderName3" />",<br />
+                "orderAddress" : "<input id="orderAddress3" />",<br />
+                "orderDetail" : "<input id="orderDetail3" />",<br />
+                "orderTotal" : "<input id="orderTotal3" />",<br />
+                "orderStatus" : "<input id="orderStatus3" />"<br />
+            </div>
+            <button id="postInsertOrder">提交测试</button>
+            <p>测试日志：</p>
+            <div id="OrderResult3" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postInsertOrder").bind("click", function() {
+                    var order = {
+                        orderUserPhone: $("#orderUserPhone3").val(),
+                        orderName: $("#orderName3").val(),
+                        orderAddress: $("#orderAddress3").val(),
+                        orderDetail: $("#orderDetail3").val(),
+                        orderTotal: $("#orderTotal3").val(),
+                        orderStatus: $("#orderStatus3").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/order/insertOrder",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(order),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#OrderResult3").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###删除订单功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "orderID" : "<input id="orderId4" />",<br />
+            </div>
+            <button id="postDeleteOrderById">提交测试</button>
+            <p>测试日志：</p>
+            <div id="OrderResult4" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postDeleteOrderById").bind("click", function() {
+                    var order = {
+                        orderId: $("#orderId4").val()
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/order/deleteOrderById",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(order),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#OrderResult4").append("#------" + new Date() + " : " + res + "<br/>");
+                        }
+                    })
+                })
+
+            </script>
+    </div>
+    <div>
+        <h2>###按月份查询功能测试：(已测试)</h1>
+            <p>测试数据：</p>
+            <div style="border:1px solid #000;padding: 10px;">
+                "userPhone" : "<input id="orderPhone5" />",<br />
+                "time" : "<br />
+                <input id="orderYear5" />年",<br />
+                <input id="orderMonth5" />月",<br />
+            </div>
+            <button id="postSelectOrderByMonth">提交测试</button>
+            <p>测试日志：</p>
+            <div id="OrderResult5" style="border:1px solid #000;padding: 10px;height: 200px;overflow:scroll;">
+            </div>
+            <script>
+                $("#postSelectOrderByMonth").bind("click", function() {
+                    var date = $("#orderYear5").val()+"/"+$("#orderMonth5").val()+"/01 00:00:00";
+                    var leftTime = new Date(date).getTime();
+                    if($("#orderMonth5").val() == 12){
+                        var rightYear = parseInt($("#orderYear5").val())+1;
+                        date = rightYear+"/01/01 00:00:00";
+                    }else{
+                        var rightMonth = parseInt($("#orderMonth5").val())+1;
+                        date = $("#orderYear5").val()+"/"+rightMonth+"/01 00:00:00";
+                    }
+                    console.log(date);
+                    var rightTime = new Date(date).getTime();
+                    var orderTime = {
+                        userPhone: $("#orderPhone5").val(),
+                        leftTime: leftTime,
+                        rightTime: rightTime
+                    };
+                    $.ajax({
+                        type: "POST",
+                        async: true,
+                        url: "http://localhost:8080/order/selectOrderByMonth",
+                        datatype: "json",
+                        cache: false,
+                        headers: {
+                            'Content-Type': 'application/json;charset=utf-8'
+                        },
+                        data: JSON.stringify(orderTime),
+                        success: function(res) { //res是server端响应
+                            //response = JSON.parse(res); //将json字符串解析为json对象（即JS对象）
+                            console.log(res);
+                            $("#OrderResult5").append("#------" + new Date() + " : " + res + "<br/>");
                         }
                     })
                 })

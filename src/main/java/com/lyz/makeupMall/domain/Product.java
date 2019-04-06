@@ -1,7 +1,6 @@
 package com.lyz.makeupMall.domain;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.*;
 

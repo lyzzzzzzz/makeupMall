@@ -41,10 +41,10 @@ public class ProductController {
 	 **/
 	@RequestMapping("product/selectByTime")
 	@ResponseBody
-	public JSONArray selectProductByTime(@RequestBody Map<String, Object> productMap) throws Exception{
-		Product product = new Product();
-        product.setProductTime(Long.valueOf(productMap.get("productTime").toString()));
-		return JSONArray.parseArray(JSON.toJSONString(productService.selectProductByTime(product)));
+	public JSONArray selectProductByTime(@RequestBody Map<String, Object> productTimeMap) throws Exception{
+		Long leftTime = Long.valueOf(productTimeMap.get("leftTime").toString());
+		Long rightTime = Long.valueOf(productTimeMap.get("rightTime").toString());
+		return JSONArray.parseArray(JSON.toJSONString(productService.selectProductByTime(leftTime,rightTime)));
 	}
 
 	/*

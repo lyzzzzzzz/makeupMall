@@ -13,4 +13,7 @@ public interface ProductMapper extends Mapper<Product> {
 	List<Product> selectProductByTime(Long leftTime,Long rightTime);
 	List<Product> selectProductByType(Product product);
 	List<Product> selectProductAllBySale();
+	List<Product> selectProductByToday();
+	List<Product> mySelectProductByBrand(String product_brand);
+	List<Product> mySelectProductByType(String productType);
 }

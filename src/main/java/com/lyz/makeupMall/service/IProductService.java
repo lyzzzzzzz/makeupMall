@@ -10,4 +10,7 @@ public interface IProductService {
 	List<Product> selectProductByType(Product product);
 	List<Product> selectProductAllBySale();
 	List<Product> selectProductByNameOrBrand(String str);
+	List<Product> selectProductByToday();
+	List<Product> mySelectProductByBrand(String product_brand);
+	List<Product> mySelectProductByType(String productType);
 }

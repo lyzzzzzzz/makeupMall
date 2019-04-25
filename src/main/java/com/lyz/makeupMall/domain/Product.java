@@ -22,7 +22,7 @@ public class Product implements Serializable {
     private String productColor;
     
     @Column(name = "product_capicity")
-    private Integer productCapicity;
+    private String productCapicity;
     
     @Column(name = "product_brand")
     private String productBrand;
@@ -31,7 +31,7 @@ public class Product implements Serializable {
     private String productType;
 
     @Column(name = "product_time")
-    private Long productTime;
+    private String productTime;
     
     @Column(name = "product_sale")
     private Integer productSale;
@@ -111,20 +111,16 @@ public class Product implements Serializable {
 		this.productColor = productColor;
 	}
 
-	/**
-     * @return product_capicity
-     */
-	public int getProductCapicity() {
+
+	
+	public String getProductCapicity() {
 		return productCapicity;
 	}
 
-	/**
-     * @param productCapicity
-     */
-	public void setProductCapicity(int productCapicity) {
+	public void setProductCapicity(String productCapicity) {
 		this.productCapicity = productCapicity;
 	}
-	
+
 	/**
      * @return product_brand
      */
@@ -153,17 +149,13 @@ public class Product implements Serializable {
 		this.productType = productType;
 	}
 
-	/**
-     * @return product_time
-     */
-	public Long getProductTime() {
+	
+
+	public String getProductTime() {
 		return productTime;
 	}
 
-	/**
-     * @param productTime
-     */
-	public void setProductTime(Long productTime) {
+	public void setProductTime(String productTime) {
 		this.productTime = productTime;
 	}
 

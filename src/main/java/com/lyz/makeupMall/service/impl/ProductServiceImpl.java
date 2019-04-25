@@ -48,4 +48,24 @@ public class ProductServiceImpl implements IProductService {
 			}
 		}
 	}
+
+	@Override
+	public List<Product> selectProductByToday() {
+		List<Product> productListByToday=productMapper.selectProductByToday();
+		return productListByToday;
+	}
+
+	@Override
+	public List<Product> mySelectProductByBrand(String product_brand) {
+		List<Product> list=this.productMapper.mySelectProductByBrand(product_brand);
+		return list;
+	}
+
+	@Override
+	public List<Product> mySelectProductByType(String productType) {
+		List<Product> list=this.productMapper.mySelectProductByType(productType);
+		return list;
+	}
+
+	
 }

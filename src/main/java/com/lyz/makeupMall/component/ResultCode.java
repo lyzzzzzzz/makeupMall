@@ -21,4 +21,6 @@ public class ResultCode {
 	public static String PHONE_ILLEGAL = "{\"code\":\"107\",\"msg\":\"无效号码\"}";
 	public static String PHONECODE_OVERTIME = "{\"code\":\"108\",\"msg\":\"验证码已失效\"}";
 	public static String PHONECODE_NOT_EXIST = "{\"code\":\"109\",\"msg\":\"验证码不存在\"}";
+	
+	
 }

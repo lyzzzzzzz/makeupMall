@@ -27,6 +27,11 @@
 			property="productPicUrl" />
 	</resultMap>
 
+
+	<select id='selectProductByToday' resultMap="BaseResultMap" parameterType="com.lyz.makeupMall.domain.Product">
+		SELECT * from product where product_time=DATE_FORMAT(NOW(),'%Y-%m-%d')
+	</select>
+
 	<!-- 根据ID查询 UpdateTime: 2019-03-28 23:30 -->
 	<select id="selectProductById"
 		parameterType="com.lyz.makeupMall.domain.Product"
@@ -60,7 +65,7 @@
 		#{productBrand}
 		ORDER BY product_sale DESC;
 	</select>
-	
+
 	<!-- 根据时间先后查询 UpdateTime: 2019-03-28 23:30 -->
 	<select id="selectProductByTime"
 		parameterType="com.lyz.makeupMall.domain.Product"
@@ -69,10 +74,11 @@
 		*
 		FROM PRODUCT WHERE
 		product_time BETWEEN
-		#{arg0} AND #{arg1}
+		#{arg0} AND
+		#{arg1}
 		ORDER BY product_time DESC;
 	</select>
-	
+
 	<!-- 根据种类查询 UpdateTime: 2019-03-28 23:30 -->
 	<select id="selectProductByType"
 		parameterType="com.lyz.makeupMall.domain.Product"
@@ -82,9 +88,10 @@
 		FROM PRODUCT WHERE
 		product_type =
 		#{productType}
-		ORDER BY product_sale DESC;
+		ORDER
+		BY product_sale DESC;
 	</select>
-	
+
 	<!-- 根据销量全部查询 UpdateTime: 2019-03-28 23:30 -->
 	<select id="selectProductAllBySale"
 		parameterType="com.lyz.makeupMall.domain.Product"
@@ -92,7 +99,28 @@
 		SELECT
 		*
 		FROM PRODUCT
-		ORDER BY product_sale DESC;
+		ORDER BY product_sale DESC limit 20;
+	</select>
+	
+	
+	<select id="mySelectProductByBrand"
+		parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM PRODUCT WHERE
+		product_brand =
+		#{productBrand}
+		</select>
+		
+		<select id="mySelectProductByType"
+		parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM PRODUCT WHERE
+		product_type =
+		#{productType}
 	</select>
 
 </mapper>

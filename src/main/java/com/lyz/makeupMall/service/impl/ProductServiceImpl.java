@@ -67,5 +67,25 @@ public class ProductServiceImpl implements IProductService {
 		return list;
 	}
 
+	@Override
+	public List<Product> SelectProductByTypeOrNameOrBrand(String search) {
+		List<Product> list=this.productMapper.SelectProductByTypeOrNameOrBrand(search);
+		return list;
+	}
+
+	@Override
+	public List<Product> SelectProductBaseBrand(String productBrand, String searchText) {
+		List<Product> list=this.productMapper.SelectProductBaseBrand(productBrand, searchText);
+		return list;
+	}
+
+	@Override
+	public List<Product> SelectProductBaseType(String productType, String searchText) {
+		List<Product> list=this.productMapper.SelectProductBaseType(productType, searchText);
+		return list;
+	}
+
+	
+
 	
 }

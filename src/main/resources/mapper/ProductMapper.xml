@@ -28,8 +28,10 @@
 	</resultMap>
 
 
-	<select id='selectProductByToday' resultMap="BaseResultMap" parameterType="com.lyz.makeupMall.domain.Product">
-		SELECT * from product where product_time=DATE_FORMAT(NOW(),'%Y-%m-%d')
+	<select id='selectProductByToday' resultMap="BaseResultMap"
+		parameterType="com.lyz.makeupMall.domain.Product">
+		SELECT * from product where
+		product_time=DATE_FORMAT(NOW(),'%Y-%m-%d')
 	</select>
 
 	<!-- 根据ID查询 UpdateTime: 2019-03-28 23:30 -->
@@ -101,26 +103,67 @@
 		FROM PRODUCT
 		ORDER BY product_sale DESC limit 20;
 	</select>
-	
-	
+
+
 	<select id="mySelectProductByBrand"
-		parameterType="java.lang.String"
-		resultMap="BaseResultMap">
+		parameterType="java.lang.String" resultMap="BaseResultMap">
 		SELECT
 		*
 		FROM PRODUCT WHERE
 		product_brand =
 		#{productBrand}
-		</select>
-		
-		<select id="mySelectProductByType"
-		parameterType="java.lang.String"
-		resultMap="BaseResultMap">
+	</select>
+
+	<select id="mySelectProductByType"
+		parameterType="java.lang.String" resultMap="BaseResultMap">
 		SELECT
 		*
 		FROM PRODUCT WHERE
 		product_type =
 		#{productType}
 	</select>
+
+	<select id="SelectProductByTypeOrNameOrBrand"
+		parameterType="java.lang.String" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		PRODUCT
+		WHERE
+		product_brand like CONCAT('%',#{search},'%')
+		or product_name like
+		CONCAT('%',#{search},'%')
+		or product_type like
+		CONCAT('%',#{search},'%')
+
+	</select>
+
+
+	<select id="SelectProductBaseBrand" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		PRODUCT
+		WHERE
+		product_brand =#{productBrand,jdbcType=VARCHAR}
+		and
+		(product_name LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
+		or product_type LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%'))
+	</select>
+
+
+	<select id="SelectProductBaseType" resultMap="BaseResultMap">
+		SELECT
+		*
+		FROM
+		PRODUCT
+		WHERE
+		product_type = #{productType,jdbcType=VARCHAR}
+		AND (
+		product_brand LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
+		OR product_name LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
+		)
+	</select>
+
 
 </mapper>

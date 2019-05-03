@@ -141,5 +141,43 @@ public class ProductController {
 		List<Product> list=this.productService.mySelectProductByType(productType);
 		return list;
 	}
+	
+	
+	/**
+	 * 根据分类、名字、品牌模糊查询商品
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/product/SelectProductByTypeOrNameOrBrand", method = RequestMethod.GET)
+	@ApiOperation(value = "根据分类、名字、品牌模糊查询商品", notes = "根据分类、名字、品牌模糊查询商品")
+	public List<Product> SelectProductByTypeOrNameOrBrand(String search) {
+		List<Product> list=this.productService.SelectProductByTypeOrNameOrBrand(search);
+		return list;
+	}
+	
+	/**
+	 * 基于品牌模糊查询商品
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/product/SelectProductBaseBrand", method = RequestMethod.GET)
+	@ApiOperation(value = "基于品牌模糊查询商品", notes = "基于品牌模糊查询商品")
+	public List<Product> SelectProductBaseBrand(String productBrand, String searchText) {
+		List<Product> list=this.productService.SelectProductBaseBrand(productBrand, searchText);
+		return list;
+	}
+	
+	/**
+	 * 基于分类模糊查询商品
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/product/SelectProductBaseType", method = RequestMethod.GET)
+	@ApiOperation(value = " 基于分类模糊查询商品", notes = " 基于分类模糊查询商品")
+	public List<Product> SelectProductBaseType(String productType, String searchText) {
+		List<Product> list=this.productService.SelectProductBaseType(productType, searchText);
+		return list;
+	}
+
 
 }

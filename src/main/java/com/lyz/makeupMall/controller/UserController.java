@@ -1,6 +1,7 @@
 package com.lyz.makeupMall.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,6 +16,8 @@ import com.lyz.makeupMall.domain.PhoneCode;
 import com.lyz.makeupMall.domain.User;
 import com.lyz.makeupMall.service.impl.UserServiceImpl;
 
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 public class UserController {
 	@Autowired
@@ -28,19 +31,21 @@ public class UserController {
 	 **/
 	@RequestMapping("user/login")
 	@ResponseBody
-	public String Login(@RequestBody Map<String, Object> userMap) {
+	public User Login(@RequestBody Map<String, Object> userMap) {
+		User loginUser = new User();
 		if(userMap.get("userPhone").toString().matches("^1[34578]\\d{9}$")) {
-			User loginUser = new User();
+//			User loginUser = new User();
 			loginUser.setUserPhone(userMap.get("userPhone").toString());
 			loginUser.setUserLoginpwd(userMap.get("userLoginpwd").toString());
 			if(userService.checkUserLoginpwd(loginUser) == ResultCode.SUCCESS) {
-				return ResultCode.LOGIN_SUCCESS;
+				loginUser=this.userService.selectUserByUserPhone(userMap.get("userPhone").toString());
+				return loginUser;
 			}
 			if(userService.checkUserLoginpwd(loginUser) == ResultCode.FAIL) {
-				return ResultCode.LOGINPWD_NOT_MATCHES;
+				return null;
 			}
 		}
-		return ResultCode.ERRORSYSTEM;
+		return null;
 	}
 
 	/*
@@ -139,5 +144,17 @@ public class UserController {
 		loginUser.setUserPhone(userMap.get("userPhone").toString());
 		User resultUser = userService.userDetail_Select(loginUser);
 		return JSON.toJSONString(resultUser);
+	}
+	
+	/**
+	 * 根据电话查询用户
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/user/selectUserByUserPhone", method = RequestMethod.GET)
+	@ApiOperation(value = " 根据电话查询用户", notes = " 根据电话查询用户")
+	public User selectUserByUserPhone(String userPhone) {
+		User user=this.userService.selectUserByUserPhone(userPhone);
+		return user;
 	}
 }

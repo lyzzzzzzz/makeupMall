@@ -151,4 +151,10 @@ public class UserServiceImpl implements IUserService {
 		return null;
 	}
 
+	@Override
+	public User selectUserByUserPhone(String userPhone) {
+		User user=this.userMapper.selectUserByUserPhone(userPhone);
+		return user;
+	}
+
 }

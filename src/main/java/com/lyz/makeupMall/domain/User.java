@@ -91,4 +91,12 @@ public class User implements Serializable {
     public void setUserAddress(String userAddress) {
         this.userAddress = userAddress == null ? null : userAddress.trim();
     }
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userPhone=" + userPhone + ", userLoginpwd=" + userLoginpwd
+				+ ", userPaypwd=" + userPaypwd + ", userAddress=" + userAddress + "]";
+	}
+    
+    
 }

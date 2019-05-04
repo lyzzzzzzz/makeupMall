@@ -8,4 +8,5 @@ public interface UserMapper extends Mapper<User> {
 	List<User> selectUserByUserPhone(User user);
 	int insertUser(User user);
 	int updateUser(User user);
+	User selectUserByUserPhone(String userPhone);
 }

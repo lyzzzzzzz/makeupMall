@@ -11,4 +11,5 @@ public interface IUserService {
 	String checkCode(User user,PhoneCode phoneCode) throws Exception;
 	String userDetail_Update(User user);
 	User userDetail_Select(User user);
+	User selectUserByUserPhone(String userPhone);
 }

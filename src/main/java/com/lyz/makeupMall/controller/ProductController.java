@@ -178,6 +178,17 @@ public class ProductController {
 		List<Product> list=this.productService.SelectProductBaseType(productType, searchText);
 		return list;
 	}
+	
+	/**
+	 * 根据用户Id查询商品
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/product/selectProductByUserId", method = RequestMethod.GET)
+	@ApiOperation(value = " 根据用户Id查询商品", notes = " 根据用户Id查询商品")
+	public List<Product> selectProductByUserId(Integer userId) {
+		return this.productService.selectProductByUserId(userId);
+	}
 
 
 }

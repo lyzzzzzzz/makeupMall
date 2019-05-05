@@ -85,6 +85,11 @@ public class ProductServiceImpl implements IProductService {
 		return list;
 	}
 
+	@Override
+	public List<Product> selectProductByUserId(Integer userId) {
+		return this.productMapper.selectProductByUserId(userId);
+	}
+
 	
 
 	

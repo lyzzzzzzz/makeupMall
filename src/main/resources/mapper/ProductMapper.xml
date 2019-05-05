@@ -148,7 +148,8 @@
 		product_brand =#{productBrand,jdbcType=VARCHAR}
 		and
 		(product_name LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
-		or product_type LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%'))
+		or
+		product_type LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%'))
 	</select>
 
 
@@ -160,9 +161,22 @@
 		WHERE
 		product_type = #{productType,jdbcType=VARCHAR}
 		AND (
-		product_brand LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
-		OR product_name LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
+		product_brand
+		LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
+		OR product_name
+		LIKE CONCAT('%', #{searchText,jdbcType=VARCHAR}, '%')
 		)
+	</select>
+
+	<select id="selectProductByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+		SELECT
+		*
+		FROM
+		product p
+		LEFT JOIN shopcar s ON p.product_id = s.product_id
+		LEFT JOIN `user` u ON u.user_id = s.user_id
+		WHERE
+		u.user_id = #{userId}
 	</select>
 
 

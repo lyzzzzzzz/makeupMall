@@ -31,4 +31,6 @@ public interface ProductMapper extends Mapper<Product> {
 
 	List<Product> SelectProductBaseBrand(@Param("productBrand") String productBrand,@Param("searchText") String searchText);
 	List<Product> SelectProductBaseType(@Param("productType") String productType,@Param("searchText") String searchText);
+	
+	List<Product> selectProductByUserId( Integer userId);
 }

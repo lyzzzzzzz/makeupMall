@@ -36,4 +36,29 @@ public class ShopCarController {
 			}
 			
 	}
+	
+	/**
+	 * 减少购物车商品数量
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/shopCar/reduceShopCar", method = RequestMethod.POST)
+	@ApiOperation(value = " 减少购物车商品数量", notes = " 减少购物车商品数量")
+	public int reduceShopCar(Integer productId, Integer userId, Integer productNum) {
+		return this.shopCarService.reduceShopCar(productId, userId, productNum);
+		
+	}
+	
+	
+	/**
+	 * 添加购物车商品数量
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/shopCar/addShopCar", method = RequestMethod.POST)
+	@ApiOperation(value = " 添加购物车商品数量", notes = " 添加购物车商品数量")
+	public int addShopCar(Integer productId, Integer userId, Integer productNum) {
+		return this.shopCarService.addShopCar(productId, userId, productNum);
+		
+	}
 }

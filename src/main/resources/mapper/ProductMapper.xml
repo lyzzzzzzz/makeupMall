@@ -25,6 +25,16 @@
 			property="productSale" />
 		<result column="product_picurl" jdbcType="VARCHAR"
 			property="productPicUrl" />
+		<result column="isChecked" jdbcType="INTEGER"
+			property="ischecked" />
+			<association property="shopCar" javaType="com.lyz.makeupMall.domain.ShopCar">
+			<id column="shopCar_id" jdbcType="INTEGER" property="shopcarId" />
+		<result column="product_id" jdbcType="INTEGER"
+			property="productId" />
+		<result column="user_id" jdbcType="INTEGER" property="userId" />
+		<result column="product_num" jdbcType="INTEGER"
+			property="productNum" />
+			</association>
 	</resultMap>
 
 
@@ -168,13 +178,16 @@
 		)
 	</select>
 
-	<select id="selectProductByUserId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+	<select id="selectProductByUserId" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
 		SELECT
-		*
+		p.*,
+		s.*
 		FROM
 		product p
 		LEFT JOIN shopcar s ON p.product_id = s.product_id
-		LEFT JOIN `user` u ON u.user_id = s.user_id
+		LEFT
+		JOIN `user` u ON u.user_id = s.user_id
 		WHERE
 		u.user_id = #{userId}
 	</select>

@@ -16,4 +16,6 @@ public interface ShopCarMapper extends Mapper<ShopCar> {
 	public int insertShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId,@Param("productNum") Integer productNum);
 	int selectCountFromShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId);
 	int updateShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId,@Param("productNum") Integer productNum);
+	int reduceShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId,@Param("productNum") Integer productNum);
+	int addShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId,@Param("productNum") Integer productNum);
 }

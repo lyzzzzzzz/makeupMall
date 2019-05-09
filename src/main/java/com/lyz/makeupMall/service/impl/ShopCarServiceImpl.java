@@ -39,5 +39,21 @@ public class ShopCarServiceImpl implements IShopCarService {
 	}
 
 
+
+	@Override
+	public int reduceShopCar(Integer productId, Integer userId, Integer productNum) {
+		// TODO Auto-generated method stub
+		return this.shopCarMapper.reduceShopCar(productId, userId, productNum);
+	}
+
+
+
+	@Override
+	public int addShopCar(Integer productId, Integer userId, Integer productNum) {
+		// TODO Auto-generated method stub
+		return this.shopCarMapper.addShopCar(productId, userId, productNum);
+	}
+
+
 	
 }

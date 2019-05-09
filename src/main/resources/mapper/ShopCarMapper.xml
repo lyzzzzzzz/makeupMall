@@ -30,5 +30,21 @@
 		product_id = #{productId}
 		AND user_id = #{userId}
 	</update>
+	
+	<update id="reduceShopCar" parameterType="java.lang.Integer" >
+		UPDATE shopcar
+		SET product_num = product_num - #{productNum}
+		WHERE
+		product_id = #{productId}
+		AND user_id = #{userId}
+	</update>
+	
+	<update id="addShopCar" parameterType="java.lang.Integer" >
+		UPDATE shopcar
+		SET product_num = product_num + #{productNum}
+		WHERE
+		product_id = #{productId}
+		AND user_id = #{userId}
+	</update>
 
 </mapper>

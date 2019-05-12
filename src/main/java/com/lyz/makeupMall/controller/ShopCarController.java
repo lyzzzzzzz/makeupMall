@@ -61,4 +61,15 @@ public class ShopCarController {
 		return this.shopCarService.addShopCar(productId, userId, productNum);
 		
 	}
+	
+	/**
+	 * 根据购物车Id批量删除购物车商品
+	 * 自己写的
+	 * @return
+	 */
+	@RequestMapping(value = "/shopCar/batchDeleteByIds", method = RequestMethod.DELETE)
+	@ApiOperation(value = " 根据购物车Id批量删除购物车商品", notes = " 根据购物车Id批量删除购物车商品")
+	public int batchDeleteByIds(int[] array) {
+		return this.shopCarService.batchDeleteByIds(array);
+	}
 }

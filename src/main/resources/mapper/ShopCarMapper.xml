@@ -18,33 +18,44 @@
 		VALUES(#{productId},#{userId},#{productNum})
 	</insert>
 
-	<select id="selectCountFromShopCar" resultType="java.lang.Integer"
-		parameterType="java.lang.Integer">
-		SELECT COUNT(*) from shopcar WHERE product_id=#{productId} and user_id=#{userId}
+	<select id="selectCountFromShopCar"
+		resultType="java.lang.Integer" parameterType="java.lang.Integer">
+		SELECT COUNT(*) from
+		shopcar WHERE product_id=#{productId} and user_id=#{userId}
 	</select>
 
 	<update id="updateShopCar" parameterType="java.lang.Integer">
 		UPDATE shopcar
-		SET product_num = product_num + #{productNum}
+		SET
+		product_num = product_num + #{productNum}
 		WHERE
-		product_id = #{productId}
+		product_id =
+		#{productId}
 		AND user_id = #{userId}
 	</update>
-	
-	<update id="reduceShopCar" parameterType="java.lang.Integer" >
+
+	<update id="reduceShopCar" parameterType="java.lang.Integer">
 		UPDATE shopcar
 		SET product_num = product_num - #{productNum}
 		WHERE
 		product_id = #{productId}
 		AND user_id = #{userId}
 	</update>
-	
-	<update id="addShopCar" parameterType="java.lang.Integer" >
+
+	<update id="addShopCar" parameterType="java.lang.Integer">
 		UPDATE shopcar
 		SET product_num = product_num + #{productNum}
 		WHERE
 		product_id = #{productId}
 		AND user_id = #{userId}
 	</update>
+
+	<delete id="batchDeleteByIds" parameterType="int[]">
+		DELETE FROM shopcar WHERE shopCar_id in
+		<foreach item="array" collection="array" open="(" separator=","
+			close=")">
+			#{array}
+		</foreach>
+	</delete>
 
 </mapper>

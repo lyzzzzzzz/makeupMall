@@ -55,5 +55,12 @@ public class ShopCarServiceImpl implements IShopCarService {
 	}
 
 
+
+	@Override
+	public int batchDeleteByIds(int[] array) {
+		return this.shopCarMapper.batchDeleteByIds(array);
+	}
+
+
 	
 }

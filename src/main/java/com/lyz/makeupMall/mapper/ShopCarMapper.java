@@ -18,4 +18,5 @@ public interface ShopCarMapper extends Mapper<ShopCar> {
 	int updateShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId,@Param("productNum") Integer productNum);
 	int reduceShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId,@Param("productNum") Integer productNum);
 	int addShopCar(@Param("productId") Integer productId,@Param("userId") Integer userId,@Param("productNum") Integer productNum);
+	int batchDeleteByIds(int[] array);
 }

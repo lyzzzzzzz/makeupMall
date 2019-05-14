@@ -12,6 +12,8 @@
 			property="userPaypwd" />
 		<result column="user_address" jdbcType="VARCHAR"
 			property="userAddress" />
+		<result column="user_name" jdbcType="VARCHAR"
+			property="userName" />
 	</resultMap>
 
 	<!-- 查询 -->
@@ -19,9 +21,7 @@
 		SELECT * FROM USER;
 	</select>
 
-	<!-- 根据ID查询
-		UpdateTime: 2019-03-24 12:20：	
-	 -->
+	<!-- 根据ID查询 UpdateTime: 2019-03-24 12:20： -->
 	<select id="selectUserByUserId"
 		parameterType="java.lang.Integer" resultMap="BaseResultMap">
 		SELECT
@@ -30,9 +30,7 @@
 		user_id = #{userId};
 	</select>
 
-	<!-- 根据电话查询
-		UpdateTime: 2019-03-24 12:20：	
-	 -->
+	<!-- 根据电话查询 UpdateTime: 2019-03-24 12:20： -->
 	<select id="selectUserByUserPhone"
 		parameterType="java.lang.String" resultMap="BaseResultMap">
 		SELECT
@@ -41,34 +39,30 @@
 		user_phone = #{userPhone};
 	</select>
 
-	<!-- 插入
-		UpdateTime: 2019-03-24 12:20：	
-	 -->
+	<!-- 插入 UpdateTime: 2019-03-24 12:20： -->
 	<insert id="insertUser"
 		parameterType="com.lyz.makeupMall.domain.User">
-		insert into user(user_phone,user_loginpwd,user_paypwd,user_address)
-		values(#{userPhone},#{userLoginpwd},#{userPaypwd},#{userAddress});
+		insert into user(user_phone,user_loginpwd,user_paypwd,user_address,user_name)
+		values(#{userPhone},#{userLoginpwd},#{userPaypwd},#{userAddress},#{userName});
 		<selectKey keyProperty="userId" order="AFTER"
 			resultType="java.lang.Integer">
 			select LAST_INSERT_ID()
 		</selectKey>
 	</insert>
-	
-	<!-- 更新个人信息
-		UpdateTime: 2019-03-24 12:20：	
-	 -->
+
+	<!-- 更新个人信息 UpdateTime: 2019-03-24 12:20： -->
 	<update id="updateUser"
 		parameterType="com.lyz.makeupMall.domain.User">
 		update user
 		<trim prefix="set" suffixOverrides=",">
-            <if test="userLoginpwd != null">user_loginpwd=#{userLoginpwd},</if>
-            <if test="userPaypwd != null">user_paypwd=#{userPaypwd},</if>
-            <if test="userAddress != null">user_address=#{userAddress},</if>
-        </trim>
+			<if test="userLoginpwd != null">user_loginpwd=#{userLoginpwd},</if>
+			<if test="userPaypwd != null">user_paypwd=#{userPaypwd},</if>
+			<if test="userAddress != null">user_address=#{userAddress},</if>
+		</trim>
 		where
 		user_phone=#{userPhone};
 	</update>
-	
-	
+
+
 
 </mapper>

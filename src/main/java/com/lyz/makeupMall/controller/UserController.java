@@ -57,10 +57,14 @@ public class UserController {
 	@RequestMapping("user/register")
 	@ResponseBody
 	public String Register(@RequestBody Map<String, Object> userMap) throws Exception {
+		System.out.println(userMap);
 		User loginUser = new User();
 		PhoneCode phoneCode = new PhoneCode();
 		loginUser.setUserPhone(userMap.get("userPhone").toString());
 		loginUser.setUserLoginpwd(userMap.get("userLoginpwd").toString());
+		loginUser.setUserPaypwd(userMap.get("userPaypwd").toString());
+		loginUser.setUserAddress(userMap.get("userAddress").toString());
+		loginUser.setUserName(userMap.get("userName").toString());
 		phoneCode.setPhoneCodeCode(userMap.get("phoneCodeCode").toString());
 		phoneCode.setPhoneCodeTime(Long.valueOf(userMap.get("phoneCodeTime").toString()));
 		return userService.registerUser(loginUser,phoneCode);

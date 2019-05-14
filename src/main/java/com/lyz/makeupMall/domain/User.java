@@ -19,10 +19,23 @@ public class User implements Serializable {
 
     @Column(name = "user_address")
     private String userAddress;
+    
+    @Column(name = "user_name")
+    private String userName;
 
     private static final long serialVersionUID = 1L;
 
-    /**
+    
+    
+    public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	/**
      * @return user_id
      */
     public Integer getUserId() {

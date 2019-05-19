@@ -40,12 +40,15 @@ public class UserController {
 			if(userService.checkUserLoginpwd(loginUser) == ResultCode.SUCCESS) {
 				loginUser=this.userService.selectUserByUserPhone(userMap.get("userPhone").toString());
 				return loginUser;
+			}else if(userService.checkUserLoginpwd(loginUser) == ResultCode.FAIL) {
+				return loginUser;
+			}else {
+				return loginUser;
 			}
-			if(userService.checkUserLoginpwd(loginUser) == ResultCode.FAIL) {
-				return null;
-			}
+		}else{
+			return loginUser;
 		}
-		return null;
+		
 	}
 
 	/*
@@ -130,6 +133,7 @@ public class UserController {
 			loginUser.setUserLoginpwd(userMap.get("userLoginpwd").toString());
 			loginUser.setUserPaypwd(userMap.get("userPaypwd").toString());
 			loginUser.setUserAddress(userMap.get("userAddress").toString());
+			loginUser.setUserName(userMap.get("userName").toString());
 			return userService.userDetail_Update(loginUser);
 		}
 		return ResultCode.ERRORSYSTEM;

@@ -58,6 +58,7 @@
 			<if test="userLoginpwd != null">user_loginpwd=#{userLoginpwd},</if>
 			<if test="userPaypwd != null">user_paypwd=#{userPaypwd},</if>
 			<if test="userAddress != null">user_address=#{userAddress},</if>
+			<if test="userName != null">user_name=#{userName},</if>
 		</trim>
 		where
 		user_phone=#{userPhone};
